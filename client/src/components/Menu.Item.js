@@ -12,9 +12,18 @@ const MenuItem = ({ shrink, name }) => {
     };
   }
 
+  const handleClick = e => {
+    e.preventDefault();
+    console.log("name", nameParse);
+  };
+
   return (
     <>
-      <div className="w100 flex-row menu-item" {...tooltipProps}>
+      <div
+        className="w100 flex-row menu-item"
+        {...tooltipProps}
+        onClick={handleClick}
+      >
         <div
           className={`${shrink ? "hide" : "flex-2 flex-row-center menu-text"}`}
         >

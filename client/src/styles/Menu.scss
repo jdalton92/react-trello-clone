@@ -1,6 +1,9 @@
 @import "./_static.scss";
 
 .menu-section {
+  z-index: 1;
+  background-color: $gray;
+  color: $licorice;
   transition: width 0.3s ease;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -39,21 +42,23 @@
 }
 
 .menu-item:hover {
-  background-color: $aquagrey;
-  cursor: pointer;
-}
-
-.menu-item:hover .menu-text,
-.menu-item:hover .menu-icon {
-  color: $platinum;
-}
-
-.menu-item:hover .menu-icon {
   background-color: $platinum;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
+// .menu-item:hover .menu-text,
+// .menu-item:hover .menu-icon {
+//   color: $gray;
+// }
+
+// .menu-item:hover .menu-icon {
+//   background-color: $gray;
+// }
 
 .menu-text {
   text-align: center;
+  font-weight: 450;
 }
 
 .icon-container {
@@ -68,12 +73,7 @@
   padding-left: 5px;
   padding-right: 5px;
   z-index: 2;
-  background-color: rgb(90, 88, 88);
-}
-
-.menu-icon:hover {
-  cursor: pointer;
-  background-color: $platinum;
+  background-color: $licorice;
 }
 
 .shrink-icon {
@@ -99,4 +99,9 @@
 .github-icon {
   -webkit-mask: url(./images/github.svg) no-repeat center;
   mask: url(./images/github.svg) no-repeat center;
+}
+
+.logout-icon {
+  -webkit-mask: url(./images/logout.svg) no-repeat center;
+  mask: url(./images/logout.svg) no-repeat center;
 }

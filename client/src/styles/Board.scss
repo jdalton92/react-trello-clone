@@ -1,6 +1,9 @@
+@import "./_static.scss";
+
 .board-section {
   overflow-x: auto;
   overflow-y: auto;
+  background-image: linear-gradient(to bottom right, white, #ebebeb);
 }
 
 .board-header-wrapper {

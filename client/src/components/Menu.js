@@ -20,10 +20,10 @@ const Menu = () => {
         </StyledPointer>
       </div>
       <div className="flex-col flex-4">
-        <MenuItem shrink={shrink} name={"User"} />
         <MenuItem shrink={shrink} name={"Boards"} />
         <MenuItem shrink={shrink} name={"User Settings"} />
         <MenuItem shrink={shrink} name={"GitHub"} />
+        <MenuItem shrink={shrink} name={"Logout"} />
       </div>
     </div>
   );
