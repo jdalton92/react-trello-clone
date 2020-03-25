@@ -1,0 +1,102 @@
+@import "./_static.scss";
+
+.menu-section {
+  transition: width 0.3s ease;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  &:hover {
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+}
+
+.menu-section button:focus {
+  outline: 0px !important;
+  box-shadow: none !important;
+}
+
+.shrink {
+  width: 50px;
+}
+
+.expanded {
+  width: 175px;
+}
+
+.menu-item-wrapper {
+  justify-content: flex-start;
+}
+
+.menu-item {
+  min-height: 75px;
+  position: relative;
+}
+
+.menu-item,
+.menu-icon,
+.menu-text {
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: $aquagrey;
+  cursor: pointer;
+}
+
+.menu-item:hover .menu-text,
+.menu-item:hover .menu-icon {
+  color: $platinum;
+}
+
+.menu-item:hover .menu-icon {
+  background-color: $platinum;
+}
+
+.menu-text {
+  text-align: center;
+}
+
+.icon-container {
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.menu-icon {
+  height: 50px;
+  width: 50px;
+  padding-left: 5px;
+  padding-right: 5px;
+  z-index: 2;
+  background-color: rgb(90, 88, 88);
+}
+
+.menu-icon:hover {
+  cursor: pointer;
+  background-color: $platinum;
+}
+
+.shrink-icon {
+  height: 35px;
+  width: 35px;
+}
+
+.user-icon {
+  -webkit-mask: url(./images/user-icon.svg) no-repeat center;
+  mask: url(./images/github.svg) no-repeat center;
+}
+
+.boards-icon {
+  -webkit-mask: url(./images/boards.svg) no-repeat center;
+  mask: url(./images/github.svg) no-repeat center;
+}
+
+.user-settings-icon {
+  -webkit-mask: url(./images/settings.svg) no-repeat center;
+  mask: url(./images/github.svg) no-repeat center;
+}
+
+.github-icon {
+  -webkit-mask: url(./images/github.svg) no-repeat center;
+  mask: url(./images/github.svg) no-repeat center;
+}

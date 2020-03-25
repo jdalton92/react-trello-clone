@@ -1,0 +1,109 @@
+@import "./_static.scss";
+
+.login-section {
+  height: 100vh;
+}
+
+.login-title-wrapper {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 1;
+}
+
+.login-subtitle,
+.login-title {
+  white-space: pre;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  color: white;
+  font-weight: lighter;
+}
+
+.login-title {
+  font-size: 36px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+}
+
+.login-subtitle:hover {
+  cursor: pointer;
+}
+
+.login-image-full {
+  background-image: url("./images/background(5).jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.9;
+}
+
+.login-right {
+  width: 350px;
+  float: right;
+}
+
+.login-icon-wrapper {
+  height: 100px;
+}
+
+.login-icon {
+  height: 150px;
+}
+
+.login-card button,
+.login-card hr {
+  margin-top: 15px;
+  transition: all 0.3s;
+}
+
+.login-card button {
+  height: 40px;
+  border-radius: 20px;
+  outline: none;
+}
+
+.sign-up-btn:hover,
+.login-btn:hover,
+.test-btn:hover {
+  cursor: pointer;
+}
+
+.sign-up-btn {
+  background-color: white;
+  border: solid $licorice;
+  color: $licorice;
+}
+
+.sign-up-btn:hover {
+  background-color: $licorice;
+  color: white;
+}
+
+.login-btn {
+  background-color: $licorice;
+  color: white;
+  border: solid $licorice;
+}
+
+.test-btn {
+  background-color: $gray;
+  color: white;
+  border: solid $gray;
+}
+
+.test-btn:hover {
+  background-color: $platinum;
+  border: $platinum;
+}
+
+@media screen and (max-width: 675px) {
+  .login-title-wrapper,
+  .login-image-full {
+    display: none;
+  }
+  .login-right {
+    width: 100%;
+  }
+}
