@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { logoutUser } from "../actions/userActions";
+import { setHeader } from "../actions/navActions";
 
-const MenuItem = ({ shrink, name }) => {
+const MenuItem = ({ shrink, name, logoutUser, setHeader }) => {
+  const history = useHistory();
+
   const nameParse = name.replace(/\s+/g, "-").toLowerCase();
 
   let tooltipProps = null;
@@ -14,7 +19,30 @@ const MenuItem = ({ shrink, name }) => {
 
   const handleClick = e => {
     e.preventDefault();
-    console.log("name", nameParse);
+    console.log(name.toLowerCase().includes("boards"));
+
+    if (name.toLowerCase().includes("boards")) {
+      history.push("/");
+      setHeader("Boards");
+      return;
+    } else if (name.toLowerCase().includes("settings")) {
+      history.push("/settings");
+      setHeader("Settings");
+      return;
+    } else if (name.toLowerCase().includes("logout")) {
+      logoutUser();
+      history.push("/");
+      setHeader("Boards");
+      return;
+    }
+
+    const win = window.open(
+      "https://github.com/jdalton92/react-trello-clone",
+      "_blank"
+    );
+    if (win != null) {
+      win.focus();
+    }
   };
 
   return (
@@ -41,4 +69,13 @@ const MenuItem = ({ shrink, name }) => {
   );
 };
 
-export default connect()(MenuItem);
+const mapStateToProps = state => ({
+  shrink: state.nav.menuShrink
+});
+
+const mapDispatchToProps = {
+  logoutUser,
+  setHeader
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuItem);

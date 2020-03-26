@@ -47,18 +47,7 @@ const Board = ({ moveList, moveCard, board }) => {
   };
 
   return (
-    <section className="h100 w100 flex-col board-section">
-      <div className="w100 board-header-wrapper">
-        <div className="h100 flex-row-center loading-wrapper">
-          <div className="h100 lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-        <p className="h100 m0 flex-row-center board-header-text">HEADER</p>
-      </div>
+    <section className="h100 w100 board-section">
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="board" direction="horizontal" type="COLUMN">
           {(provided, _snapshot) => (

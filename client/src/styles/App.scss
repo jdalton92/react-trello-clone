@@ -4,6 +4,20 @@
   margin: 0;
 }
 
+.hide {
+  display: none;
+}
+
+.app-wrapper {
+  height: 100vh;
+}
+
+.page-wrapper {
+  overflow-y: auto;
+  overflow-x: auto;
+  background-image: linear-gradient(to bottom right, white, #ebebeb);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

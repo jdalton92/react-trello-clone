@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { HashRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { initUser } from "./actions/userActions";
-import Home from "./components/Home";
 import Login from "./components/Login";
+import Menu from "./components/Menu";
+import PageHeader from "./components/PageHeader";
 import Board from "./components/Board";
+import Settings from "./components/Settings";
 import "./styles/App.scss";
 
 const App = props => {
@@ -14,18 +16,29 @@ const App = props => {
   // }, []);
 
   return (
-    <Router>
-      {props.user ? (
-        <>
-          <Route exact path="/" render={() => <Home />} />
-          <Route path="/:id" render={() => <Board />} />
-        </>
-      ) : (
-        <>
-          <Login />
-        </>
-      )}
-    </Router>
+    <>
+      <div className="app-wrapper flex-row">
+        <Router>
+          <Switch>
+            {props.user ? (
+              <>
+                <Menu />
+                <div className="h100 w100 flex-col page-wrapper">
+                  <PageHeader />
+                  <Route exact path="/" render={() => <Board />} />
+                  {/* <Route path="/:id" render={() => <Board />} /> */}
+                  <Route path="/settings" render={() => <Settings />} />
+                </div>
+              </>
+            ) : (
+              <>
+                <Login />
+              </>
+            )}
+          </Switch>
+        </Router>
+      </div>
+    </>
   );
 };
 

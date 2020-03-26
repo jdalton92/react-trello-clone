@@ -1,27 +1,5 @@
 @import "./_static.scss";
 
-.board-section {
-  overflow-x: auto;
-  overflow-y: auto;
-  background-image: linear-gradient(to bottom right, white, #ebebeb);
-}
-
-.board-header-wrapper {
-  min-height: 50px;
-  text-align: center;
-}
-
-.loading-wrapper {
-  float: left;
-  width: 45px;
-  height: 45px;
-  box-sizing: border-box;
-}
-
-.board-header-text {
-  width: auto;
-}
-
 .board {
   height: 100%;
   display: flex;

@@ -1,40 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { StyledPointer } from "../styles/StyledComponents";
 import { connect } from "react-redux";
 import MenuItem from "./Menu.Item";
+import { toggleMenu } from "../actions/navActions";
 import "../styles/Menu.scss";
 
-const Menu = () => {
-  const [shrink, setShrink] = useState(false);
-
+const Menu = ({ shrink, toggleMenu }) => {
   return (
     <div
       className={`menu-section flex-col-center ${
         shrink ? "shrink" : "expanded"
       }`}
     >
-      <div className="flex-col-center flex-1">
-        <StyledPointer shrink={shrink} onClick={() => setShrink(!shrink)}>
+      <div className="styled-pointer-wrapper">
+        <StyledPointer shrink={shrink} onClick={() => toggleMenu()}>
           <div />
           <div />
         </StyledPointer>
       </div>
-      <div className="flex-col flex-4">
-        <MenuItem shrink={shrink} name={"Boards"} />
-        <MenuItem shrink={shrink} name={"User Settings"} />
-        <MenuItem shrink={shrink} name={"GitHub"} />
-        <MenuItem shrink={shrink} name={"Logout"} />
+      <div className="w100 flex-col">
+        <MenuItem name={"Boards"} />
+        <MenuItem name={"User Settings"} />
+        <MenuItem name={"GitHub"} />
+        <MenuItem name={"Logout"} />
       </div>
     </div>
   );
 };
 
 const mapStateToProps = state => ({
-  undefined
+  shrink: state.nav.menuShrink
 });
 
 const mapDispatchToProps = {
-  undefined
+  toggleMenu
 };
 
-export default connect()(Menu);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

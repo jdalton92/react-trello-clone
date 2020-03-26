@@ -1,5 +1,5 @@
 import loginService from "../services/login";
-import { setToken, destroyToken } from "../helpers/tokenHelper";
+import { setToken, destroyToken } from "../utils/tokenHelper";
 import userService from "../services/user";
 
 export const initUser = () => {
