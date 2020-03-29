@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createUser, updateUser, deleteUser } from "../actions/userActions";
+import { updateUser, deleteUser } from "../actions/userActions";
 // import { setNotification } from "../reducers/notificationReducer";
 import { Form as FinalForm, Field } from "react-final-form";
 import {
@@ -11,10 +11,10 @@ import {
 } from "../utils/formValidator";
 import "../styles/Settings.scss";
 
-const Settings = ({ email, id }) => {
+const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
   const userDetails = {
-    oldEmail: email,
-    id
+    oldEmail: user.email,
+    id: user.id
   };
 
   const handleEmailChange = async values => {
@@ -23,7 +23,7 @@ const Settings = ({ email, id }) => {
       `Change email from ${userDetails.oldEmail} to ${values.newEmail}?`
     );
     if (confirm) {
-      await props.updateUser({
+      await updateUser({
         newEmail: values.newEmail,
         ...userDetails
       });
@@ -33,7 +33,7 @@ const Settings = ({ email, id }) => {
   const handlePasswordChange = async values => {
     // React final form handles e.preventDefault()
     const { oldPassword, newPassword, checkPassword } = values;
-    await props.updateUser({
+    await updateUser({
       oldPassword,
       newPassword,
       checkPassword,
@@ -45,21 +45,19 @@ const Settings = ({ email, id }) => {
     // React final form handles e.preventDefault()
     const confirm = window.confirm(`Delete ${userDetails.username}?`);
     if (confirm) {
-      await props.deleteUser(password, props.user.id);
+      await deleteUser(password, user.id);
     }
   };
 
   return (
     <section className="flex-col-center">
-      {props.user.isFetching ? null : (
+      {isFetching ? null : (
         <>
           <div className="form-wrapper">
             <div className="form-header">
               <h1>Change Email</h1>
             </div>
-            <div className="form-current-email">
-              Current: {props.user.data.email}
-            </div>
+            <div className="form-current-email">Current: {user.email}</div>
             <FinalForm
               onSubmit={handleEmailChange}
               render={({ handleSubmit, values }) => (
@@ -88,9 +86,8 @@ const Settings = ({ email, id }) => {
                   </Field>
                   <div className="form-button-container">
                     <button
-                      className="form-button"
+                      className="form-button login-button-primary"
                       type="submit"
-                      variant="primary"
                     >
                       Update
                     </button>
@@ -226,12 +223,12 @@ const Settings = ({ email, id }) => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    isFetching: state.nav.isFetching
   };
 };
 
 const mapDispatchToProps = {
-  createUser,
   updateUser,
   deleteUser
   //   setNotification

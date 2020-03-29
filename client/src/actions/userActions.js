@@ -13,18 +13,28 @@ export const initUser = () => {
 
         dispatch({
           type: "SET_USER",
-          data: user
+          payLoad: user
         });
       }
     } catch (e) {
       dispatch({
         type: "SET_NOTIFICATION",
-        content: {
-          message: e.response.data.error,
-          type: "error"
-        }
+        payLoad: { message: e.response.data.error, type: "error" }
       });
     }
+  };
+};
+
+export const trialUser = () => {
+  return dispatch => {
+    dispatch({
+      type: "SET_USER",
+      payLoad: {
+        token: "testusertoken",
+        email: "test@email.com",
+        id: "1"
+      }
+    });
   };
 };
 
@@ -52,14 +62,11 @@ export const createUser = ({ email, password, checkPassword }) => {
 
       dispatch({
         type: "SET_USER",
-        data: user
+        payLoad: { user }
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        content: {
-          message: "Account Created",
-          type: "success"
-        }
+        payLoad: { message: "account created", type: "success" }
       });
       dispatch({
         type: "SET_LOADING",
@@ -70,13 +77,9 @@ export const createUser = ({ email, password, checkPassword }) => {
         type: "SET_LOADING",
         payLoad: { isFetching: false }
       });
-
       dispatch({
         type: "SET_NOTIFICATION",
-        content: {
-          message: e.response.data.error,
-          type: "error"
-        }
+        payLoad: { message: e.response.data.error, type: "error" }
       });
     }
   };
@@ -109,7 +112,7 @@ export const loginUser = ({ email, password }) => {
 
       dispatch({
         type: "SET_USER",
-        payLoad: { user }
+        payLoad: user
       });
 
       dispatch({
@@ -121,13 +124,9 @@ export const loginUser = ({ email, password }) => {
         type: "SET_LOADING",
         payLoad: { isFetching: false }
       });
-
       dispatch({
         type: "SET_NOTIFICATION",
-        content: {
-          message: "wrong username or password",
-          type: "error"
-        }
+        payLoad: { message: e.response.data.error, type: "error" }
       });
     }
   };
@@ -173,10 +172,7 @@ export const updateUser = (
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        content: {
-          message: e.response.data.error,
-          type: "error"
-        }
+        payLoad: { message: e.response.data.error, type: "error" }
       });
     }
   };
@@ -208,10 +204,7 @@ export const deleteUser = (password, id) => {
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        content: {
-          message: e.response.data.error,
-          type: "error"
-        }
+        payLoad: { message: e.response.data.error, type: "error" }
       });
     }
   };

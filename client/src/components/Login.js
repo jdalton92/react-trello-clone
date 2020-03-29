@@ -25,8 +25,6 @@ const Login = ({ setLogin, loginView, isFetching, user }) => {
     </button>
   );
 
-  console.log("user", user);
-
   return (
     <section className="w100 login-section flex-row">
       <div className="login-title-wrapper m10">

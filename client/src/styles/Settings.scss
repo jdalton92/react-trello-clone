@@ -7,6 +7,7 @@
   padding: 50px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
   &:hover {
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
@@ -33,14 +34,13 @@
 
 .form-button {
   width: 200px;
-  height: 30px;
-  border-radius: 15px;
-  border: solid 1px $aquagrey;
-  color: $aquagrey;
-  background-color: transparent;
+  height: 40px;
+  border-radius: 20px;
+  border: solid 1px black;
+  background-color: white;
   &:hover {
     cursor: pointer;
-    background-color: $aquagrey;
+    background-color: black;
     color: white;
   }
 }

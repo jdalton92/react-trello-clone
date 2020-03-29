@@ -5,7 +5,8 @@ const initialState = null;
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_USER":
-      return action.payLoad;
+      const user = { ...action.payLoad };
+      return user;
     case "CLEAR_USER":
       return initialState;
     default:

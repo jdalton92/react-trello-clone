@@ -27,9 +27,9 @@ const App = props => {
             {props.user ? (
               <>
                 <Menu />
+                <Notifications />
                 <div className="h100 w100 flex-col page-wrapper">
                   <PageHeader />
-                  <Notifications />
                   <Route exact path="/" render={() => <Boards />} />
                   <Route path="/board/:id" render={() => <Board />} />
                   <Route path="/settings" render={() => <Settings />} />
@@ -38,6 +38,7 @@ const App = props => {
             ) : (
               <>
                 <Login />
+                <Notifications />
               </>
             )}
           </Switch>

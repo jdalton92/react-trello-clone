@@ -2,11 +2,12 @@ import React from "react";
 import loginIcon from "../styles/images/login-icon.svg";
 import { connect } from "react-redux";
 import { setLogin } from "../actions/navActions";
+import { trialUser } from "../actions/userActions";
 
-const LoginLanding = ({ setLogin }) => {
+const LoginLanding = ({ setLogin, trialUser }) => {
   const handleTestFirst = e => {
     e.preventDefault();
-    console.log("test");
+    trialUser();
   };
 
   return (
@@ -40,7 +41,8 @@ const LoginLanding = ({ setLogin }) => {
 };
 
 const mapDispatchToProps = {
-  setLogin
+  setLogin,
+  trialUser
 };
 
 export default connect(null, mapDispatchToProps)(LoginLanding);
