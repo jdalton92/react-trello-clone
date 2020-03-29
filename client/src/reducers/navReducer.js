@@ -1,6 +1,8 @@
 const initialState = {
   header: "Boards",
-  menuShrink: false
+  loginView: "landing",
+  menuShrink: false,
+  isFetching: false
 };
 
 const navReducer = (state = initialState, action) => {
@@ -9,8 +11,16 @@ const navReducer = (state = initialState, action) => {
       return { ...state, menuShrink: !state.menuShrink };
     }
     case "SET_HEADER": {
-      const { header } = action.payload;
+      const { header } = action.payLoad;
       return { ...state, header };
+    }
+    case "SET_LOGIN": {
+      const { view } = action.payLoad;
+      return { ...state, loginView: view };
+    }
+    case "SET_LOADING": {
+      const { isFetching } = action.payLoad;
+      return { ...state, isFetching };
     }
     default:
       return state;

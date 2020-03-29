@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { createUser, updateUser, deleteUser } from "../actions/userActions";
 // import { setNotification } from "../reducers/notificationReducer";
@@ -11,17 +11,10 @@ import {
 } from "../utils/formValidator";
 import "../styles/Settings.scss";
 
-const Settings = props => {
-  const [form, setForm] = useState({});
-
-  const formHandler = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
+const Settings = ({ email, id }) => {
   const userDetails = {
-    username: props.user.data.username,
-    oldEmail: props.user.data.email,
-    id: props.user.data.id
+    oldEmail: email,
+    id
   };
 
   const handleEmailChange = async values => {
@@ -57,64 +50,57 @@ const Settings = props => {
   };
 
   return (
-    <section className="form-section" id="create-form-section">
+    <section className="flex-col-center">
       {props.user.isFetching ? null : (
         <>
-          <div className="form-outer-container form-card-container">
+          <div className="form-wrapper">
             <div className="form-header">
               <h1>Change Email</h1>
             </div>
-            <div className="form-inner-container">
-              <div className="form-item">
-                <h5>Existing Email</h5>
-                <div className="form-control" id="existing-email">
-                  {props.user.data.email}
-                </div>
-              </div>
-              <FinalForm
-                onSubmit={handleEmailChange}
-                render={({ handleSubmit, values }) => (
-                  <form className="form-element" onSubmit={handleSubmit}>
-                    <div className="form-item">
-                      <h5>New Email</h5>
-                      <Field
-                        name="newEmail"
-                        validate={composeValidators(
-                          required,
-                          minLength(3),
-                          isEmail
-                        )}
-                      >
-                        {({ input, meta }) => (
-                          <div>
-                            <input
-                              className="form-control"
-                              placeholder="new@email.com"
-                              type="email"
-                              {...input}
-                            />
-                            {meta.error && meta.touched && (
-                              <span className="form-error">{meta.error}</span>
-                            )}
-                          </div>
-                        )}
-                      </Field>
-                    </div>
-                    <div className="form-button-container">
-                      <button
-                        className="form-button"
-                        type="submit"
-                        variant="primary"
-                      >
-                        Update
-                      </button>
-                    </div>
-                  </form>
-                )}
-              />
+            <div className="form-current-email">
+              Current: {props.user.data.email}
             </div>
+            <FinalForm
+              onSubmit={handleEmailChange}
+              render={({ handleSubmit, values }) => (
+                <form className="form-element" onSubmit={handleSubmit}>
+                  <Field
+                    name="newEmail"
+                    validate={composeValidators(
+                      required,
+                      minLength(3),
+                      isEmail
+                    )}
+                  >
+                    {({ input, meta }) => (
+                      <div>
+                        <input
+                          className="form-control"
+                          placeholder="new@email.com"
+                          type="email"
+                          {...input}
+                        />
+                        <div className="form-error">
+                          {meta.error && meta.touched && meta.error}
+                        </div>
+                      </div>
+                    )}
+                  </Field>
+                  <div className="form-button-container">
+                    <button
+                      className="form-button"
+                      type="submit"
+                      variant="primary"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </form>
+              )}
+            />
           </div>
-          <div className="form-outer-container form-card-container">
+
+          <div className="form-wrapper">
             <div className="form-header">
               <h1>Change Password</h1>
             </div>
@@ -133,66 +119,57 @@ const Settings = props => {
                 }}
                 render={({ handleSubmit, values }) => (
                   <form className="form-element" onSubmit={handleSubmit}>
-                    <div className="form-item">
-                      <h5>Old Password</h5>
-                      <Field
-                        name="oldPassword"
-                        validate={composeValidators(required, minLength(3))}
-                      >
-                        {({ input, meta }) => (
-                          <div>
-                            <input
-                              className="form-control"
-                              placeholder="Password"
-                              type="password"
-                              {...input}
-                            />
-                            {meta.error && meta.touched && (
-                              <span className="form-error">{meta.error}</span>
-                            )}
+                    <Field
+                      name="oldPassword"
+                      validate={composeValidators(required, minLength(3))}
+                    >
+                      {({ input, meta }) => (
+                        <div>
+                          <input
+                            className="form-control"
+                            placeholder="Old Password"
+                            type="password"
+                            {...input}
+                          />
+                          <div className="form-error">
+                            {meta.error && meta.touched && meta.error}
                           </div>
-                        )}
-                      </Field>
-                    </div>
-                    <div className="form-item">
-                      <h5>New Password</h5>
-                      <Field
-                        name="newPassword"
-                        validate={composeValidators(required, minLength(3))}
-                      >
-                        {({ input, meta }) => (
-                          <div>
-                            <input
-                              className="form-control"
-                              placeholder="Password"
-                              type="password"
-                              {...input}
-                            />
-                            {meta.error && meta.touched && (
-                              <span className="form-error">{meta.error}</span>
-                            )}
+                        </div>
+                      )}
+                    </Field>
+                    <Field
+                      name="newPassword"
+                      validate={composeValidators(required, minLength(3))}
+                    >
+                      {({ input, meta }) => (
+                        <div>
+                          <input
+                            className="form-control"
+                            placeholder="New Password"
+                            type="password"
+                            {...input}
+                          />
+                          <div className="form-error">
+                            {meta.error && meta.touched && meta.error}
                           </div>
-                        )}
-                      </Field>
-                    </div>
-                    <div className="form-item">
-                      <h5>Confirm New Password</h5>
-                      <Field name="checkPassword">
-                        {({ input, meta }) => (
-                          <div>
-                            <input
-                              className="form-control"
-                              placeholder="Password"
-                              type="password"
-                              {...input}
-                            />
-                            {meta.error && meta.touched && (
-                              <span className="form-error">{meta.error}</span>
-                            )}
+                        </div>
+                      )}
+                    </Field>
+                    <Field name="checkPassword">
+                      {({ input, meta }) => (
+                        <div>
+                          <input
+                            className="form-control"
+                            placeholder="Confirm New Password"
+                            type="password"
+                            {...input}
+                          />
+                          <div className="form-error">
+                            {meta.error && meta.touched && meta.error}
                           </div>
-                        )}
-                      </Field>
-                    </div>
+                        </div>
+                      )}
+                    </Field>
                     <div className="form-button-container">
                       <button className="form-button" type="submit">
                         Update
@@ -203,7 +180,8 @@ const Settings = props => {
               />
             </div>
           </div>
-          <div className="form-outer-container form-card-container">
+
+          <div className="form-wrapper">
             <div className="form-header">
               <h1>Delete Account</h1>
             </div>
@@ -212,27 +190,24 @@ const Settings = props => {
                 onSubmit={handleDelete}
                 render={({ handleSubmit, values }) => (
                   <form className="form-element" onSubmit={handleSubmit}>
-                    <div className="form-item">
-                      <h5>Password</h5>
-                      <Field
-                        name="password"
-                        validate={composeValidators(required, minLength(3))}
-                      >
-                        {({ input, meta }) => (
-                          <div>
-                            <input
-                              className="form-control"
-                              placeholder="Password"
-                              type="password"
-                              {...input}
-                            />
-                            {meta.error && meta.touched && (
-                              <span className="form-error">{meta.error}</span>
-                            )}
-                          </div>
-                        )}
-                      </Field>
-                    </div>
+                    <Field
+                      name="password"
+                      validate={composeValidators(required, minLength(3))}
+                    >
+                      {({ input, meta }) => (
+                        <div>
+                          <input
+                            className="form-control"
+                            placeholder="Password"
+                            type="password"
+                            {...input}
+                          />
+                          {meta.error && meta.touched && (
+                            <span className="form-error">{meta.error}</span>
+                          )}
+                        </div>
+                      )}
+                    </Field>
                     <div className="form-button-container">
                       <button className="form-button" type="submit">
                         Delete

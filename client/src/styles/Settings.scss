@@ -1,0 +1,46 @@
+@import "./_static.scss";
+
+.form-wrapper {
+  width: 65%;
+  margin-bottom: 35px;
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  &:hover {
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+}
+
+.form-wrapper h1 {
+  margin-bottom: 10px;
+}
+
+.form-current-email {
+  padding-top: 10px;
+  height: 30px;
+}
+
+.form-error {
+  min-height: 15px;
+  font-size: 10px;
+  color: rgb(200, 35, 35);
+}
+
+.form-button-container {
+  margin-top: 10px;
+}
+
+.form-button {
+  width: 200px;
+  height: 30px;
+  border-radius: 15px;
+  border: solid 1px $aquagrey;
+  color: $aquagrey;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+    background-color: $aquagrey;
+    color: white;
+  }
+}

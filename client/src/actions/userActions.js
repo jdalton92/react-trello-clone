@@ -28,14 +28,14 @@ export const initUser = () => {
   };
 };
 
-export const createUser = ({ username, email, password, checkPassword }) => {
+export const createUser = ({ email, password, checkPassword }) => {
   return async dispatch => {
     dispatch({
-      type: "USER_REQUEST"
+      type: "SET_LOADING",
+      payLoad: { isFetching: true }
     });
     try {
       await userService.create({
-        username,
         email,
         password,
         checkPassword
@@ -57,19 +57,25 @@ export const createUser = ({ username, email, password, checkPassword }) => {
       dispatch({
         type: "SET_NOTIFICATION",
         content: {
-          message: `${username} created`,
+          message: "Account Created",
           type: "success"
         }
       });
+      dispatch({
+        type: "SET_LOADING",
+        payLoad: { isFetching: false }
+      });
     } catch (e) {
       dispatch({
-        type: "USER_REQUEST_FAIL"
+        type: "SET_LOADING",
+        payLoad: { isFetching: false }
       });
+
       dispatch({
         type: "SET_NOTIFICATION",
         content: {
           message: e.response.data.error,
-          type: "danger"
+          type: "error"
         }
       });
     }
@@ -86,10 +92,11 @@ export const logoutUser = () => {
   };
 };
 
-export const loginUser = (email, password) => {
+export const loginUser = ({ email, password }) => {
   return async dispatch => {
     dispatch({
-      type: "USER_REQUEST"
+      type: "SET_LOADING",
+      payLoad: { isFetching: true }
     });
     try {
       const user = await loginService.login({
@@ -102,12 +109,19 @@ export const loginUser = (email, password) => {
 
       dispatch({
         type: "SET_USER",
-        data: user
+        payLoad: { user }
+      });
+
+      dispatch({
+        type: "SET_LOADING",
+        payLoad: { isFetching: false }
       });
     } catch (e) {
       dispatch({
-        type: "USER_REQUEST_FAIL"
+        type: "SET_LOADING",
+        payLoad: { isFetching: false }
       });
+
       dispatch({
         type: "SET_NOTIFICATION",
         content: {
@@ -128,7 +142,8 @@ export const updateUser = (
 ) => {
   return async dispatch => {
     dispatch({
-      type: "USER_REQUEST"
+      type: "SET_LOADING",
+      payLoad: { isFetching: true }
     });
     try {
       const user = await userService.update(
@@ -147,9 +162,14 @@ export const updateUser = (
         type: "SET_USER",
         data: user
       });
+      dispatch({
+        type: "SET_LOADING",
+        payLoad: { isFetching: false }
+      });
     } catch (e) {
       dispatch({
-        type: "USER_REQUEST_FAIL"
+        type: "SET_LOADING",
+        payLoad: { isFetching: false }
       });
       dispatch({
         type: "SET_NOTIFICATION",
@@ -158,11 +178,6 @@ export const updateUser = (
           type: "error"
         }
       });
-      setTimeout(() => {
-        dispatch({
-          type: "CLEAR_NOTIFICATION"
-        });
-      }, 5000);
     }
   };
 };
@@ -170,7 +185,8 @@ export const updateUser = (
 export const deleteUser = (password, id) => {
   return async dispatch => {
     dispatch({
-      type: "USER_REQUEST"
+      type: "SET_LOADING",
+      payLoad: { isFetching: true }
     });
     try {
       await userService.deleteUser(password, id);
@@ -181,9 +197,14 @@ export const deleteUser = (password, id) => {
       dispatch({
         type: "CLEAR_USER"
       });
+      dispatch({
+        type: "SET_LOADING",
+        payLoad: { isFetching: false }
+      });
     } catch (e) {
       dispatch({
-        type: "USER_REQUEST_FAIL"
+        type: "SET_LOADING",
+        payLoad: { isFetching: false }
       });
       dispatch({
         type: "SET_NOTIFICATION",
@@ -192,11 +213,6 @@ export const deleteUser = (password, id) => {
           type: "error"
         }
       });
-      setTimeout(() => {
-        dispatch({
-          type: "CLEAR_NOTIFICATION"
-        });
-      }, 5000);
     }
   };
 };

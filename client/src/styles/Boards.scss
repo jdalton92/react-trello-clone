@@ -1,0 +1,46 @@
+@import "./_static.scss";
+
+.boards-wrapper {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.boards-table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.boards-table td,
+.boards-table th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.view-action {
+  padding-bottom: 10px;
+}
+
+.boards-table-action {
+  color: blue;
+  text-align: center;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+    color: $gray;
+  }
+}
+
+.boards-table thead,
+.boards-table tr:nth-child(even) {
+  background-color: #dfdfdf;
+}
+
+.boards-table tr:hover {
+  background-color: #eaeaea;
+}

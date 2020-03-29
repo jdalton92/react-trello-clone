@@ -8,11 +8,12 @@ import "../styles/Menu.scss";
 
 const Menu = ({ shrink, toggleMenu }) => {
   return (
-    <div
-      className={`menu-section flex-col-center ${
-        shrink ? "shrink" : "expanded"
-      }`}
-    >
+    // <div
+    //   className={`menu-section flex-col-center ${
+    //     shrink ? "shrink" : "expanded"
+    //   }`}
+    // >
+    <div className="menu-section flex-col-center">
       <div className="styled-pointer-wrapper">
         <StyledPointer shrink={shrink} onClick={() => toggleMenu()}>
           <div />

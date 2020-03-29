@@ -2,6 +2,7 @@
 
 * {
   margin: 0;
+  font-family: "Raleway", sans-serif;
 }
 
 .hide {
@@ -76,6 +77,26 @@
 
 .flex-5 {
   flex: 5;
+}
+
+.flex-6 {
+  flex: 6;
+}
+
+.flex-7 {
+  flex: 7;
+}
+
+.flex-8 {
+  flex: 8;
+}
+
+.flex-9 {
+  flex: 9;
+}
+
+.flex-10 {
+  flex: 10;
 }
 
 .w100 {
@@ -567,6 +588,36 @@ button[aria-label][data-balloon-pos] {
   white-space: normal;
   width: 380px;
 }
+
+.form-element input {
+  display: block;
+  width: 100%;
+  height: 50px;
+  background-color: transparent;
+  margin: 0 auto;
+  border: none;
+  border-bottom: 1px solid rgb(90, 88, 88);
+  &::placeholder {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  &:hover,
+  &:focus,
+  &:active:focus {
+    color: black;
+    outline: none;
+    border-bottom: 1px solid black;
+    &::placeholder {
+      color: black;
+      position: relative;
+      -webkit-transform: translateY(-20px);
+      transform: translateY(-20px);
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   [aria-label][data-balloon-pos][data-balloon-length="xlarge"]:after {
     white-space: normal;

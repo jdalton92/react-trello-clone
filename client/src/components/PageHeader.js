@@ -13,7 +13,7 @@ const PageHeader = ({ header }) => {
           <div></div>
         </div>
       </div>
-      <p className="h100 m0 flex-row-center">{header}</p>
+      <h2 className="h100 m0 flex-row-center">{header}</h2>
     </div>
   );
 };

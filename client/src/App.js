@@ -2,11 +2,15 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { initUser } from "./actions/userActions";
+
+import Notifications from "./components/Notifications";
 import Login from "./components/Login";
 import Menu from "./components/Menu";
 import PageHeader from "./components/PageHeader";
+import Boards from "./components/Boards";
 import Board from "./components/Board";
 import Settings from "./components/Settings";
+
 import "./styles/App.scss";
 
 const App = props => {
@@ -25,8 +29,9 @@ const App = props => {
                 <Menu />
                 <div className="h100 w100 flex-col page-wrapper">
                   <PageHeader />
-                  <Route exact path="/" render={() => <Board />} />
-                  {/* <Route path="/:id" render={() => <Board />} /> */}
+                  <Notifications />
+                  <Route exact path="/" render={() => <Boards />} />
+                  <Route path="/board/:id" render={() => <Board />} />
                   <Route path="/settings" render={() => <Settings />} />
                 </div>
               </>
@@ -44,7 +49,7 @@ const App = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.data.username
+    user: state.user
   };
 };
 

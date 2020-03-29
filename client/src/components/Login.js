@@ -1,10 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../actions/userActions";
-import loginIcon from "../styles/images/login-icon.svg";
+import { setLogin } from "../actions/navActions";
+import LoginLoading from "./Login.Loading";
+import LoginLanding from "./Login.Landing";
+import LoginSignUp from "./Login.SignUp";
+import LoginLogin from "./Login.Login";
 import "../styles/Login.scss";
 
-const Login = () => {
+const Login = ({ setLogin, loginView, isFetching, user }) => {
   const handleClick = e => {
     e.preventDefault();
     const win = window.open("https://jamesdalton.io", "_blank");
@@ -13,23 +16,19 @@ const Login = () => {
     }
   };
 
-  const handleSignUp = e => {
-    e.preventDefault();
-    console.log("sign up");
-  };
+  const BackButton = () => (
+    <button
+      className="w90 login-secondary-btn"
+      onClick={() => setLogin("landing")}
+    >
+      back
+    </button>
+  );
 
-  const handleLogin = e => {
-    e.preventDefault();
-    console.log("log in");
-  };
-
-  const handleTestFirst = e => {
-    e.preventDefault();
-    console.log("test first");
-  };
+  console.log("user", user);
 
   return (
-    <section className="login-section flex-row">
+    <section className="w100 login-section flex-row">
       <div className="login-title-wrapper m10">
         <h2 className="login-title">react trello clone.</h2>
         <h4
@@ -43,24 +42,16 @@ const Login = () => {
       <div className="h100 w100 login-image-full"></div>
       <div className="flex-row-center login-right">
         <div className="w100 flex-col-center login-card">
-          <div className="flex-center login-icon-wrapper">
-            <img
-              className="img-cover w-auto login-icon"
-              title="login-icon"
-              alt="login-icon"
-              src={loginIcon}
-            />
-          </div>
-          <button className="w90 sign-up-btn" onClick={handleSignUp}>
-            Sign Up
-          </button>
-          <button className="w90 login-btn" onClick={handleLogin}>
-            Log In
-          </button>
-          <hr className="w90" />
-          <button className="w90 test-btn" onClick={handleTestFirst}>
-            I'd like to test first
-          </button>
+          {isFetching ? (
+            <LoginLoading />
+          ) : (
+            <>
+              {loginView === "landing" && <LoginLanding />}
+              {loginView === "signUp" && <LoginSignUp />}
+              {loginView === "login" && <LoginLogin />}
+              {loginView !== "landing" && <BackButton />}
+            </>
+          )}
         </div>
       </div>
     </section>
@@ -68,12 +59,13 @@ const Login = () => {
 };
 
 const mapStateToProps = state => ({
-  boards: state.boards,
-  boardOrder: state.boardOrder
+  loginView: state.nav.loginView,
+  isFetching: state.nav.isFetching,
+  user: state.user
 });
 
 const mapDispatchToProps = {
-  loginUser
+  setLogin
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -11,6 +11,7 @@
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   position: relative;
+  transition: width 0.3s ease;
 }
 
 .menu-section button:focus {
@@ -19,11 +20,8 @@
 }
 
 .shrink {
-  width: 40px;
-}
-
-.expanded {
-  width: 145px;
+  width: 0px;
+  display: none;
 }
 
 .styled-pointer-wrapper {
@@ -40,8 +38,8 @@
 .menu-section,
 .menu-item,
 .menu-icon,
-.menu-text {
-  transition: all 0.2s ease;
+.menu-text-wrapper {
+  transition: all 0.3s ease-in-out;
 }
 
 .menu-item:hover {
@@ -50,11 +48,11 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.menu-text {
+.menu-text-wrapper {
   text-align: center;
   font-weight: 450;
   font-size: 14px;
-  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .icon-container {

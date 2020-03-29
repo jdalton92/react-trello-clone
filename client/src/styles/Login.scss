@@ -4,6 +4,10 @@
   height: 100vh;
 }
 
+.login-section hr {
+  height: 1px;
+}
+
 .login-title-wrapper {
   position: absolute;
   bottom: 0px;
@@ -44,12 +48,17 @@
   float: right;
 }
 
-.login-icon-wrapper {
-  height: 100px;
+.login-card {
+  height: 350px;
 }
 
-.login-icon {
-  height: 150px;
+.login-card form {
+  width: 100%;
+}
+
+.login-card input {
+  margin-bottom: 10px !important;
+  width: 80% !important;
 }
 
 .login-card button,
@@ -64,38 +73,41 @@
   outline: none;
 }
 
-.sign-up-btn:hover,
-.login-btn:hover,
-.test-btn:hover {
+.login-icon-wrapper {
+  height: 150px;
+}
+
+.login-primary-btn:hover,
+.login-secondary-btn:hover,
+.login-alt-btn:hover {
   cursor: pointer;
 }
 
-.sign-up-btn {
+.login-secondary-btn {
   background-color: white;
   border: solid $licorice;
   color: $licorice;
 }
 
-.sign-up-btn:hover {
+.login-secondary-btn:hover {
   background-color: $licorice;
   color: white;
 }
 
-.login-btn {
+.login-primary-btn {
   background-color: $licorice;
   color: white;
   border: solid $licorice;
 }
 
-.test-btn {
+.login-alt-btn {
   background-color: $gray;
   color: white;
-  border: solid $gray;
+  border: solid 1px $gray;
 }
 
-.test-btn:hover {
+.login-alt-btn:hover {
   background-color: $platinum;
-  border: $platinum;
 }
 
 @media screen and (max-width: 675px) {

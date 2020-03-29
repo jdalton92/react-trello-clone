@@ -19,8 +19,6 @@ const MenuItem = ({ shrink, name, logoutUser, setHeader }) => {
 
   const handleClick = e => {
     e.preventDefault();
-    console.log(name.toLowerCase().includes("boards"));
-
     if (name.toLowerCase().includes("boards")) {
       history.push("/");
       setHeader("Boards");
@@ -53,9 +51,11 @@ const MenuItem = ({ shrink, name, logoutUser, setHeader }) => {
         onClick={handleClick}
       >
         <div
-          className={`${shrink ? "hide" : "flex-2 flex-row-center menu-text"}`}
+          className={`${
+            shrink ? "shrink" : "flex-2 flex-row-center menu-text-wrapper"
+          }`}
         >
-          {name}
+          <div className="menu-text">{name}</div>
         </div>
         <div className="flex-1 flex-row icon-container">
           <div
