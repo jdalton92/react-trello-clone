@@ -44,7 +44,7 @@
 }
 
 .login-right {
-  width: 350px;
+  width: 450px;
   float: right;
 }
 
@@ -85,7 +85,7 @@
 
 .login-secondary-btn {
   background-color: white;
-  border: solid $licorice;
+  border: solid 2px $licorice;
   color: $licorice;
 }
 
@@ -97,7 +97,7 @@
 .login-primary-btn {
   background-color: $licorice;
   color: white;
-  border: solid $licorice;
+  border: solid 2px $licorice;
 }
 
 .login-alt-btn {

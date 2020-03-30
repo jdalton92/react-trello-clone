@@ -6,15 +6,6 @@ export const toggleMenu = () => {
   };
 };
 
-export const setHeader = header => {
-  return dispatch => {
-    dispatch({
-      type: "SET_HEADER",
-      payLoad: { header }
-    });
-  };
-};
-
 export const setLogin = view => {
   return dispatch => {
     dispatch({

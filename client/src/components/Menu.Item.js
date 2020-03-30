@@ -2,9 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { logoutUser } from "../actions/userActions";
-import { setHeader } from "../actions/navActions";
 
-const MenuItem = ({ shrink, name, logoutUser, setHeader }) => {
+const MenuItem = ({ link, shrink, name, logoutUser }) => {
   const history = useHistory();
 
   const nameParse = name.replace(/\s+/g, "-").toLowerCase();
@@ -19,28 +18,21 @@ const MenuItem = ({ shrink, name, logoutUser, setHeader }) => {
 
   const handleClick = e => {
     e.preventDefault();
-    if (name.toLowerCase().includes("boards")) {
-      history.push("/");
-      setHeader("Boards");
-      return;
-    } else if (name.toLowerCase().includes("settings")) {
-      history.push("/settings");
-      setHeader("Settings");
-      return;
-    } else if (name.toLowerCase().includes("logout")) {
+    if (name.toLowerCase().includes("logout")) {
       logoutUser();
       history.push("/");
-      setHeader("Boards");
-      return;
+    } else if (name.toLowerCase().includes("github")) {
+      const win = window.open(
+        "https://github.com/jdalton92/react-trello-clone",
+        "_blank"
+      );
+      if (win != null) {
+        win.focus();
+      }
+    } else {
+      history.push(link);
     }
-
-    const win = window.open(
-      "https://github.com/jdalton92/react-trello-clone",
-      "_blank"
-    );
-    if (win != null) {
-      win.focus();
-    }
+    return;
   };
 
   return (
@@ -74,8 +66,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  logoutUser,
-  setHeader
+  logoutUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuItem);

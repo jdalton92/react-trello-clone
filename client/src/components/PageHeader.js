@@ -23,7 +23,6 @@ const PageHeader = ({ header, isFetching }) => {
 };
 
 const mapStateToProps = state => ({
-  header: state.nav.header,
   isFetching: state.nav.isFetching
 });
 

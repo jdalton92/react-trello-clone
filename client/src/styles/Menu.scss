@@ -77,17 +77,22 @@
 
 .user-icon {
   -webkit-mask: url(./images/user-icon.svg) no-repeat center;
-  mask: url(./images/github.svg) no-repeat center;
+  mask: url(./images/user-icon.svg) no-repeat center;
+}
+
+.create-board-icon {
+  -webkit-mask: url(./images/create-board.svg) no-repeat center;
+  mask: url(./images/create-board.svg) no-repeat center;
 }
 
 .boards-icon {
   -webkit-mask: url(./images/boards.svg) no-repeat center;
-  mask: url(./images/github.svg) no-repeat center;
+  mask: url(./images/boards.svg) no-repeat center;
 }
 
 .user-settings-icon {
   -webkit-mask: url(./images/settings.svg) no-repeat center;
-  mask: url(./images/github.svg) no-repeat center;
+  mask: url(./images/settings.svg) no-repeat center;
 }
 
 .github-icon {

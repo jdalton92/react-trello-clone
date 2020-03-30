@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PageHeader from "./PageHeader";
 import { setNotification } from "../actions/notificationActions";
 import "../styles/Boards.scss";
 
@@ -26,43 +27,46 @@ const Boards = ({ setNotification }) => {
   };
 
   return (
-    <section className="h100 w100 flex-col boards-wrapper">
-      <table className="w80 boards-table">
-        <thead>
-          <tr>
-            <th>Ref</th>
-            <th>Board Name</th>
-            <th>Description</th>
-            <th>Last Modified</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {boards.map((b, i) => (
-            <tr key={i}>
-              <td>Ref</td>
-              <td>Board Name</td>
-              <td>Description</td>
-              <td>Last Modified</td>
-              <td>
-                <div
-                  className="boards-table-action view-action"
-                  onClick={handleView}
-                >
-                  View
-                </div>
-                <div
-                  className="boards-table-action delete-action"
-                  onClick={handleDelete}
-                >
-                  Delete
-                </div>
-              </td>
+    <>
+      <PageHeader header={"Boards"} />
+      <section className="h100 w100 flex-col boards-wrapper">
+        <table className="w90 boards-table">
+          <thead>
+            <tr>
+              <th>Ref</th>
+              <th>Board Name</th>
+              <th>Description</th>
+              <th>Last Modified</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
+          </thead>
+          <tbody>
+            {boards.map((b, i) => (
+              <tr key={i}>
+                <td>Ref</td>
+                <td>Board Name</td>
+                <td>Description</td>
+                <td>Last Modified</td>
+                <td>
+                  <div
+                    className="boards-table-action view-action"
+                    onClick={handleView}
+                  >
+                    View
+                  </div>
+                  <div
+                    className="boards-table-action delete-action"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    </>
   );
 };
 
