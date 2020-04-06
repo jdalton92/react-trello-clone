@@ -12,6 +12,9 @@ const middleware = require("./utils/middleware");
 
 const loginRouter = require("./controllers/login");
 const usersRouter = require("./controllers/users");
+const boardsRouter = require("./controllers/boards");
+const listsRouter = require("./controllers/lists");
+const cardsRouter = require("./controllers/cards");
 
 app.use(cors());
 app.use(express.static("build"));
@@ -23,7 +26,7 @@ const databaseConnection = async () => {
     await mongoose.connect(config.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false
+      useFindAndModify: false,
     });
     logger.info("connected to MongoDB");
   } catch (e) {
@@ -38,6 +41,10 @@ app.use(middleware.requestLogger);
 
 app.use("/api/login", loginRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/boards", boardsRouter);
+app.use("/api/lists", listsRouter);
+app.use("/api/cards", cardsRouter);
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "build", "index.html"));
 });

@@ -3,11 +3,14 @@ import loginIcon from "../styles/images/login-icon.svg";
 import { connect } from "react-redux";
 import { setLogin } from "../actions/navActions";
 import { trialUser } from "../actions/userActions";
+import { useHistory } from "react-router-dom";
 
 const LoginLanding = ({ setLogin, trialUser }) => {
+  const history = useHistory();
   const handleTestFirst = e => {
     e.preventDefault();
     trialUser();
+    history.push("/");
   };
 
   return (

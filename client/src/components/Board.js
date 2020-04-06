@@ -8,7 +8,7 @@ import { moveList } from "../actions/listActions";
 import { moveCard } from "../actions/cardActions";
 import "../styles/Board.scss";
 
-const Board = ({ moveList, moveCard, board }) => {
+const Board = ({ moveList, moveCard, boards }) => {
   const boardID = useParams().id;
   console.log("boardID", boardID);
   // useEffect(() => {
@@ -52,7 +52,7 @@ const Board = ({ moveList, moveCard, board }) => {
         <Droppable droppableId="board" direction="horizontal" type="COLUMN">
           {(provided, _snapshot) => (
             <div className="board" ref={provided.innerRef}>
-              {board.lists.map((listId, index) => {
+              {boards.lists.map((listId, index) => {
                 return <List listId={listId} key={listId} index={index} />;
               })}
 
@@ -76,7 +76,7 @@ const Board = ({ moveList, moveCard, board }) => {
 };
 
 const mapStateToProps = state => ({
-  board: state.board
+  boards: state.boards
 });
 
 const mapDispatchToProps = {

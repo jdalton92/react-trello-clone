@@ -1,6 +1,7 @@
 const initialState = {
   loginView: "landing",
-  menuShrink: false,
+  showBoardModal: false,
+  menuShrink: true,
   isFetching: false
 };
 
@@ -8,6 +9,10 @@ const navReducer = (state = initialState, action) => {
   switch (action.type) {
     case "TOGGLE_MENU": {
       return { ...state, menuShrink: !state.menuShrink };
+    }
+    case "SET_BOARD_MODAL": {
+      const { modalShow } = action.payLoad;
+      return { ...state, showBoardModal: modalShow };
     }
     case "SET_LOGIN": {
       const { view } = action.payLoad;

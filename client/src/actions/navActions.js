@@ -6,6 +6,15 @@ export const toggleMenu = () => {
   };
 };
 
+export const setBoardModal = modalShow => {
+  return dispatch => {
+    dispatch({
+      type: "SET_BOARD_MODAL",
+      payLoad: { modalShow }
+    });
+  };
+};
+
 export const setLogin = view => {
   return dispatch => {
     dispatch({

@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { logoutUser } from "../actions/userActions";
+import { setBoardModal } from "../actions/navActions";
 
-const MenuItem = ({ link, shrink, name, logoutUser }) => {
+const MenuItem = ({ link, shrink, name, logoutUser, setBoardModal }) => {
   const history = useHistory();
 
   const nameParse = name.replace(/\s+/g, "-").toLowerCase();
@@ -12,11 +13,11 @@ const MenuItem = ({ link, shrink, name, logoutUser }) => {
   if (shrink) {
     tooltipProps = {
       "aria-label": name,
-      "data-balloon-pos": "right"
+      "data-balloon-pos": "right",
     };
   }
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.preventDefault();
     if (name.toLowerCase().includes("logout")) {
       logoutUser();
@@ -29,6 +30,9 @@ const MenuItem = ({ link, shrink, name, logoutUser }) => {
       if (win != null) {
         win.focus();
       }
+    } else if (link === "/create") {
+      setBoardModal(true);
+      history.push(link);
     } else {
       history.push(link);
     }
@@ -38,35 +42,36 @@ const MenuItem = ({ link, shrink, name, logoutUser }) => {
   return (
     <>
       <div
-        className="w100 flex-row menu-item"
+        className="w100 flex-col-center menu-item"
         {...tooltipProps}
         onClick={handleClick}
       >
-        <div
-          className={`${
-            shrink ? "shrink" : "flex-2 flex-row-center menu-text-wrapper"
-          }`}
-        >
-          <div className="menu-text">{name}</div>
-        </div>
-        <div className="flex-1 flex-row icon-container">
+        <div className="w100 flex-row-center icon-container">
           <div
             className={`${
               shrink ? "shrink-icon" : ""
             } menu-icon ${nameParse}-icon`}
           />
         </div>
+        <div
+          className={`${
+            shrink ? "shrink" : "w100 flex-row-center menu-text-wrapper"
+          }`}
+        >
+          <div className="menu-text">{name}</div>
+        </div>
       </div>
     </>
   );
 };
 
-const mapStateToProps = state => ({
-  shrink: state.nav.menuShrink
+const mapStateToProps = (state) => ({
+  shrink: state.nav.menuShrink,
 });
 
 const mapDispatchToProps = {
-  logoutUser
+  logoutUser,
+  setBoardModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuItem);

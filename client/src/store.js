@@ -9,7 +9,7 @@ import notificationReducer from "./reducers/notificationReducer";
 
 const reducers = combineReducers({
   nav: navReducer,
-  board: boardReducer,
+  boards: boardReducer,
   lists: listReducer,
   cards: cardReducer,
   user: userReducer,

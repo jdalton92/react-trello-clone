@@ -13,13 +13,17 @@ import Settings from "./components/Settings";
 
 import "./styles/App.scss";
 
-const App = ({ initUser, user }) => {
+const App = ({ initUser, user, boards, lists, cards }) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     initUser();
     setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log("boards", boards);
+  console.log("lists", lists);
+  console.log("cards", cards);
 
   if (loading) {
     return (
@@ -70,7 +74,9 @@ const App = ({ initUser, user }) => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    cards: state.cards,
+    lists: state.lists
   };
 };
 
