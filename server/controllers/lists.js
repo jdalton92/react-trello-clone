@@ -3,24 +3,6 @@ const middleware = require("../utils/middleware");
 const List = require("../models/list");
 const Board = require("../models/board");
 
-// OBJECT RETURNED FROM api/boards HAS LIST/CARD DETAILS
-// listsRouter.get(
-//   "/",
-//   middleware.tokenValidate,
-//   async (request, response, next) => {
-//     const { boardId } = request.body;
-//     try {
-//       const lists = await List.find({
-//         board: boardId,
-//       }).populate("cards");
-
-//       response.status(200).json(lists);
-//     } catch (e) {
-//       next(e);
-//     }
-//   }
-// );
-
 listsRouter.post(
   "/",
   middleware.tokenValidate,
@@ -36,6 +18,7 @@ listsRouter.post(
     });
 
     board.lists = board.lists.concat(list._id);
+    board.lastModified = Date.now();
 
     try {
       await board.save();
@@ -57,8 +40,11 @@ listsRouter.put(
       listTitle,
       listIndex,
       board: boardId,
-      cards: [...cards],
+      cards,
     };
+
+    const board = await Board.findById(boardId);
+    board.lastModified = Date.now();
 
     try {
       const result = await List.findByIdAndUpdate(
@@ -68,6 +54,7 @@ listsRouter.put(
           new: true,
         }
       );
+      board.save();
       response.status(200).json(result);
     } catch (e) {
       next(e);
@@ -82,13 +69,15 @@ listsRouter.delete(
     try {
       const decodedToken = jwt.verify(request.token, process.env.SECRET);
 
-      const list = await List.findById(request.params.id);
-
       if (board.user.toString() === decodedToken.id) {
         await List.findByIdAndRemove(request.params.id);
-        // TO DO
-        // DELETE CARDS
-        // DELETE LISTS FROM BOARDS DB
+
+        // Remove list from board object
+        const board = await Board.findById(request.params.id);
+        board.lists = board.lists.filter((l) => l !== decodedToken.id);
+        board.lastModified = Date.now();
+        board.save();
+
         response.status(204).end();
       } else {
         response.status(404).end();

@@ -15,8 +15,13 @@ const listSchema = mongoose.Schema({
   },
   cards: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Card",
+      cardText: {
+        type: String,
+      },
+      cardIndex: {
+        type: Number,
+        required: true,
+      },
     },
   ],
 });

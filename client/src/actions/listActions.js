@@ -1,6 +1,6 @@
 import shortid from "shortid";
 
-export const addList = title => {
+export const addList = title, boardId => {
   return async dispatch => {
     // dispatch({
     //   type: "LIST_REQUEST"
@@ -9,7 +9,7 @@ export const addList = title => {
     try {
       dispatch({
         type: "ADD_LIST",
-        payload: { listId: shortid.generate(), listTitle: title }
+        payload: { board: boardId, listId: shortid.generate(), listTitle: title }
       });
     } catch (e) {
       console.log(e);

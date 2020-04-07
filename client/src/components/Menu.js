@@ -31,12 +31,12 @@ const Menu = ({ shrink, toggleMenu }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  shrink: state.nav.menuShrink
+const mapStateToProps = (state) => ({
+  shrink: state.nav.menuShrink,
 });
 
 const mapDispatchToProps = {
-  toggleMenu
+  toggleMenu,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);
