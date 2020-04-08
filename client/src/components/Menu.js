@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { StyledPointer } from "../styles/StyledComponents";
 import { connect } from "react-redux";
 import MenuItem from "./Menu.Item";
@@ -8,11 +7,6 @@ import "../styles/Menu.scss";
 
 const Menu = ({ shrink, toggleMenu }) => {
   return (
-    // <div
-    //   className={`menu-section flex-col-center ${
-    //     shrink ? "shrink" : "expanded"
-    //   }`}
-    // >
     <div className="menu-section flex-col-center">
       <div className="styled-pointer-wrapper">
         <StyledPointer shrink={shrink} onClick={() => toggleMenu()}>
@@ -21,7 +15,7 @@ const Menu = ({ shrink, toggleMenu }) => {
         </StyledPointer>
       </div>
       <div className="w100 flex-col">
-        <MenuItem name={"Boards"} link={"/"} />
+        <MenuItem name={"Saved Boards"} link={"/"} />
         <MenuItem name={"Create Board"} link={"/create"} />
         <MenuItem name={"User Settings"} link={"/settings"} />
         <MenuItem name={"GitHub"} />

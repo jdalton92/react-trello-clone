@@ -2,21 +2,24 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setBoardModal } from "../actions/navActions";
+import { addBoard } from "../actions/boardActions";
+import "../styles/CreateBoard.Overlay.scss";
 
-const CreateBoardOverlay = ({ modal, setBoardModal }) => {
+const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
   const [boardName, setBoardName] = useState("");
   const [boardDescription, setBoardDescription] = useState("");
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(boardName, boardDescription);
+    addBoard(boardName, boardDescription);
+    setBoardModal(false);
+    history.push(`board/${board._id}`);
   };
 
   const handleCancel = (e) => {
     e.preventDefault();
     setBoardModal(false);
-    history.push("/");
   };
 
   return (
@@ -25,10 +28,11 @@ const CreateBoardOverlay = ({ modal, setBoardModal }) => {
         <div className="overlay">
           <div className="modal">
             <form
-              className="content flex-col board-name-form"
+              className="content w100 h100 flex-col-center"
               onSubmit={handleSubmit}
             >
               <input
+                className="w100"
                 placeholder="Board Name"
                 type="text"
                 maxLength={100}
@@ -37,6 +41,7 @@ const CreateBoardOverlay = ({ modal, setBoardModal }) => {
                 required
               />
               <input
+                className="w100"
                 placeholder="Board Description"
                 type="text"
                 maxLength={100}
@@ -44,12 +49,15 @@ const CreateBoardOverlay = ({ modal, setBoardModal }) => {
                 onChange={({ target }) => setBoardDescription(target.value)}
                 required
               />
-              <div>
-                <button className="login-primary-btn" type="submit">
+              <div className="w100 flex-row">
+                <button
+                  className="flex-1 login-primary-btn create-new-board-btn"
+                  type="submit"
+                >
                   create
                 </button>
                 <button
-                  className="login-secondary-btn"
+                  className="flex-1 login-secondary-btn cancel-new-board-btn"
                   type="button"
                   onClick={handleCancel}
                 >
@@ -66,10 +74,12 @@ const CreateBoardOverlay = ({ modal, setBoardModal }) => {
 
 const mapStateToProps = (state) => ({
   modal: state.nav.showBoardModal,
+  board: state.boards.activeBoard,
 });
 
 const mapDispatchToProps = {
   setBoardModal,
+  addBoard,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateBoardOverlay);

@@ -2,7 +2,7 @@ const initialState = {
   loginView: "landing",
   showBoardModal: false,
   menuShrink: true,
-  isFetching: false
+  isFetching: false,
 };
 
 const navReducer = (state = initialState, action) => {
@@ -11,15 +11,15 @@ const navReducer = (state = initialState, action) => {
       return { ...state, menuShrink: !state.menuShrink };
     }
     case "SET_BOARD_MODAL": {
-      const { modalShow } = action.payLoad;
+      const { modalShow } = action.payload;
       return { ...state, showBoardModal: modalShow };
     }
     case "SET_LOGIN": {
-      const { view } = action.payLoad;
+      const { view } = action.payload;
       return { ...state, loginView: view };
     }
     case "SET_LOADING": {
-      const { isFetching } = action.payLoad;
+      const { isFetching } = action.payload;
       return { ...state, isFetching };
     }
     default:

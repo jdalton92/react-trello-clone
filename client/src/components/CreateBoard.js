@@ -1,21 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 import PageHeader from "./PageHeader";
-import CreateBoardOverlay from "./CreateBoard.Overlay";
+
 import Board from "./Board";
 
-const CreateBoard = () => {
-  const handleSave = e => {
-    e.preventDefault();
-  };
-
+const CreateBoard = ({ board }) => {
+  console.log("create board, state.board", board);
   return (
     <>
       <PageHeader header={"Create Board"} />
       <CreateBoardOverlay />
-      <Board />
+      {Object.keys(board).length !== 0 && <Board />}
     </>
   );
 };
 
-export default connect()(CreateBoard);
+const mapStateToProps = (state) => ({
+  board: state.boards.activeBoard,
+});
+
+export default connect(mapStateToProps)(CreateBoard);

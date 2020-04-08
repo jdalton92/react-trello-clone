@@ -11,7 +11,6 @@ const listSchema = mongoose.Schema({
   },
   listIndex: {
     type: Number,
-    required: true,
   },
   cards: [
     {

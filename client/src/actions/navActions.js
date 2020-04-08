@@ -1,34 +1,34 @@
 export const toggleMenu = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
-      type: "TOGGLE_MENU"
+      type: "TOGGLE_MENU",
     });
   };
 };
 
-export const setBoardModal = modalShow => {
-  return dispatch => {
+export const setBoardModal = (modalShow) => {
+  return (dispatch) => {
     dispatch({
       type: "SET_BOARD_MODAL",
-      payLoad: { modalShow }
+      payload: { modalShow },
     });
   };
 };
 
-export const setLogin = view => {
-  return dispatch => {
+export const setLogin = (view) => {
+  return (dispatch) => {
     dispatch({
       type: "SET_LOGIN",
-      payLoad: { view }
+      payload: { view },
     });
   };
 };
 
-export const setFetching = isFetching => {
-  return dispatch => {
+export const setFetching = (isFetching) => {
+  return (dispatch) => {
     dispatch({
       type: "SET_LOADING",
-      payLoad: { isFetching }
+      payload: { isFetching },
     });
   };
 };

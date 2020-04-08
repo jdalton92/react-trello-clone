@@ -1,17 +1,18 @@
-const listReducer = (state = {}, action) => {
+const listReducer = (state = [], action) => {
   switch (action.type) {
+    case "INIT_LISTS": {
+      const { lists } = action.payload;
+      return lists;
+    }
     case "ADD_LIST": {
-      const { listId, listTitle } = action.payload;
-      return {
-        ...state,
-        [listId]: { _id: listId, title: listTitle, cards: [] }
-      };
+      const { listId, listIndex, listTitle } = action.payload;
+      return [...state, { listId, listIndex, title: listTitle, cards: [] }];
     }
     case "CHANGE_LIST_TITLE": {
       const { listId, listTitle } = action.payload;
       return {
         ...state,
-        [listId]: { ...state[listId], title: listTitle }
+        [listId]: { ...state[listId], title: listTitle },
       };
     }
     case "DELETE_LIST": {
@@ -23,7 +24,7 @@ const listReducer = (state = {}, action) => {
       const { listId, cardId } = action.payload;
       return {
         ...state,
-        [listId]: { ...state[listId], cards: [...state[listId].cards, cardId] }
+        [listId]: { ...state[listId], cards: [...state[listId].cards, cardId] },
       };
     }
     case "MOVE_CARD": {
@@ -31,7 +32,7 @@ const listReducer = (state = {}, action) => {
         oldCardIndex,
         newCardIndex,
         sourceListId,
-        destListId
+        destListId,
       } = action.payload;
       // Move within the same list
       if (sourceListId === destListId) {
@@ -40,7 +41,7 @@ const listReducer = (state = {}, action) => {
         newCards.splice(newCardIndex, 0, removedCard);
         return {
           ...state,
-          [sourceListId]: { ...state[sourceListId], cards: newCards }
+          [sourceListId]: { ...state[sourceListId], cards: newCards },
         };
       }
       // Move card from one list to another
@@ -51,18 +52,18 @@ const listReducer = (state = {}, action) => {
       return {
         ...state,
         [sourceListId]: { ...state[sourceListId], cards: sourceCards },
-        [destListId]: { ...state[destListId], cards: destinationCards }
+        [destListId]: { ...state[destListId], cards: destinationCards },
       };
     }
     case "DELETE_CARD": {
       const { cardId: deletedCardId, listId } = action.payload;
-      const filterDeleted = cardId => cardId !== deletedCardId;
+      const filterDeleted = (cardId) => cardId !== deletedCardId;
       return {
         ...state,
         [listId]: {
           ...state[listId],
-          cards: state[listId].cards.filter(filterDeleted)
-        }
+          cards: state[listId].cards.filter(filterDeleted),
+        },
       };
     }
     default:

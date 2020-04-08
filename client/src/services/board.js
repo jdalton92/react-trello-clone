@@ -12,7 +12,7 @@ const getBoard = async (id) => {
   return response.data;
 };
 
-const saveBoard = async (payLoad) => {
+const newBoard = async (payLoad) => {
   const response = await axios.post(baseUrl, payLoad, getConfig());
   return response.data;
 };
@@ -31,4 +31,4 @@ const deleteBoard = async (id) => {
   return response.data;
 };
 
-export default { getBoards, getBoard, saveBoard, updateBoard, deleteBoard };
+export default { getBoards, getBoard, newBoard, updateBoard, deleteBoard };

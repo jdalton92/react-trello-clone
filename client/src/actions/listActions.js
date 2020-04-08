@@ -1,109 +1,61 @@
-import shortid from "shortid";
+import listService from "../services/list";
 
-export const addList = title, boardId => {
-  return async dispatch => {
-    // dispatch({
-    //   type: "LIST_REQUEST"
-    // });
-    console.log("reducer title", title);
+export const addList = (listTitle, boardId) => {
+  return async (dispatch) => {
     try {
+      const list = listService.saveList({ listTitle, boardId });
+
       dispatch({
         type: "ADD_LIST",
-        payload: { board: boardId, listId: shortid.generate(), listTitle: title }
+        payload: {
+          listId: list._id,
+          listTitle,
+        },
       });
     } catch (e) {
       console.log(e);
-      //   dispatch({
-      //     type: "LIST_REQUEST_FAIL"
-      //   });
-      //   dispatch({
-      //     type: "SET_NOTIFICATION",
-      //     content: {
-      //       message: e.response.data.error,
-      //       type: "danger"
-      //     }
-      //   });
     }
   };
 };
 
-export const changeListTitle = (listId, title) => {
-  return async dispatch => {
-    // dispatch({
-    //   type: "LIST_REQUEST"
-    // });
+export const changeListTitle = (listId, listTitle) => {
+  return async (dispatch) => {
     try {
       dispatch({
         type: "CHANGE_LIST_TITLE",
-        payload: { listId, listTitle: title }
+        payload: { listId, listTitle },
       });
     } catch (e) {
       console.log(e);
-      //   dispatch({
-      //     type: "LIST_REQUEST_FAIL"
-      //   });
-      //   dispatch({
-      //     type: "SET_NOTIFICATION",
-      //     content: {
-      //       message: e.response.data.error,
-      //       type: "danger"
-      //     }
-      //   });
     }
   };
 };
 
 export const deleteList = (listId, cards) => {
-  return async dispatch => {
-    // dispatch({
-    //   type: "LIST_REQUEST"
-    // });
+  return async (dispatch) => {
     try {
       dispatch({
         type: "DELETE_LIST",
-        payload: { listId, cards }
+        payload: { listId, cards },
       });
     } catch (e) {
       console.log(e);
-      //   dispatch({
-      //     type: "LIST_REQUEST_FAIL"
-      //   });
-      //   dispatch({
-      //     type: "SET_NOTIFICATION",
-      //     content: {
-      //       message: e.response.data.error,
-      //       type: "danger"
-      //     }
-      //   });
     }
   };
 };
 
 export const moveList = (oldListIndex, newListIndex) => {
-  return async dispatch => {
-    // dispatch({
-    //   type: "LIST_REQUEST"
-    // });
+  return async (dispatch) => {
     try {
       dispatch({
         type: "MOVE_LIST",
         payload: {
           oldListIndex,
-          newListIndex
-        }
+          newListIndex,
+        },
       });
     } catch (e) {
       console.log(e);
-      //   dispatch({
-      //     type: "LIST_REQUEST_FAIL"
-      //   });
-      //   dispatch({
-      //     type: "SET_NOTIFICATION",
-      //     content: {
-      //       message: e.response.data.error,
-      //       type: "danger"
-      //     }
-      //   });
     }
   };
 };

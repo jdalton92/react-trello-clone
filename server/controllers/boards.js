@@ -1,5 +1,6 @@
 const boardsRouter = require("express").Router();
 const middleware = require("../utils/middleware");
+const jwt = require("jsonwebtoken");
 const Board = require("../models/board");
 const User = require("../models/user");
 
@@ -28,7 +29,7 @@ boardsRouter.get(
   middleware.tokenValidate,
   async (request, response, next) => {
     try {
-      const board = await board.findById(request.params.id).populate({
+      const board = await Board.findById(request.params.id).populate({
         path: "lists",
         populate: {
           path: "cards",
@@ -47,6 +48,7 @@ boardsRouter.post(
   middleware.tokenValidate,
   async (request, response, next) => {
     const { boardName, boardDescription } = request.body;
+    console.log("request.body", request.body);
 
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
 
@@ -59,7 +61,7 @@ boardsRouter.post(
     });
 
     board.user = user._id;
-    user.boards = user.boards.concat(dashboard._id);
+    user.boards = user.boards.concat(board._id);
 
     try {
       await board.save();

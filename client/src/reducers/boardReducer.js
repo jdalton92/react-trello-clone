@@ -1,14 +1,30 @@
-const boardReducer = (state = { lists: [] }, action) => {
+const boardReducer = (
+  state = { boards: [], activeBoard: { lists: [] } },
+  action
+) => {
   switch (action.type) {
+    case "INIT_BOARDS": {
+      const { boards } = action.payload;
+      return { ...state, boards };
+    }
+    case "GET_BOARD_DETAILS": {
+      const { boardDetails } = action.payload;
+      return { ...state, activeBoard: { ...boardDetails } };
+    }
     case "ADD_BOARD": {
-      const { listId } = action.payload;
-      return { lists: [...state.lists, listId] };
+      const { boardDetails } = action.payload;
+      return {
+        ...state,
+        boards: [...state.boards, boardDetails],
+      };
+    }
+    case "CLEAR_BOARD": {
+      return { ...state, activeBoard: {} };
     }
     case "DELETE_BOARD": {
-      const { listId } = action.payload;
-      const filterDeleted = (tmpListId) => tmpListId !== listId;
-      const newLists = state.lists.filter(filterDeleted);
-      return { lists: newLists };
+      const { boardId } = action.payload;
+      const boards = state.lists.filter((b) => b._id !== boardId);
+      return { ...state, boards };
     }
     default:
       return state;

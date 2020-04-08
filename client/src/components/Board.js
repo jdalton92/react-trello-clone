@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import PageHeader from "./PageHeader";
 import List from "./List";
 import AddList from "./AddList";
+import { getBoard } from "../actions/boardActions";
 import { moveList } from "../actions/listActions";
 import { moveCard } from "../actions/cardActions";
 import "../styles/Board.scss";
 
-const Board = ({ moveList, moveCard, boards }) => {
-  const boardID = useParams().id;
-  console.log("boardID", boardID);
-  // useEffect(() => {
-  //   props.setActiveBoard(boardID);
-  // }, []);
+const Board = ({ moveList, moveCard, getBoard, lists, isFetching }) => {
+  const boardId = useParams().id;
+  useEffect(() => {
+    getBoard(boardId);
+  }, []);
 
   const [addingList, setAddingList] = useState(false);
 
@@ -47,41 +48,56 @@ const Board = ({ moveList, moveCard, boards }) => {
   };
 
   return (
-    <section className="h100 w100 board-section">
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="board" direction="horizontal" type="COLUMN">
-          {(provided, _snapshot) => (
-            <div className="board" ref={provided.innerRef}>
-              {boards.lists.map((listId, index) => {
-                return <List listId={listId} key={listId} index={index} />;
-              })}
+    <>
+      <PageHeader header={"Board"} />
+      {isFetching ? (
+        <div>loading...</div>
+      ) : (
+        <section className="h100 w100 board-section">
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable droppableId="board" direction="horizontal" type="COLUMN">
+              {(provided, _snapshot) => (
+                <div className="board" ref={provided.innerRef}>
+                  {lists.map((l, i) => {
+                    return <List list={l} key={l._id} index={i} />;
+                  })}
 
-              {provided.placeholder}
+                  {provided.placeholder}
 
-              <div className="add-list">
-                {addingList ? (
-                  <AddList toggleAddingList={toggleAddingList} />
-                ) : (
-                  <div onClick={toggleAddingList} className="add-list-button">
-                    <ion-icon name="add" /> Add a list
+                  <div className="add-list">
+                    {addingList ? (
+                      <AddList
+                        toggleAddingList={toggleAddingList}
+                        boardId={boardId}
+                      />
+                    ) : (
+                      <div
+                        onClick={toggleAddingList}
+                        className="add-list-button"
+                      >
+                        <ion-icon name="add" /> Add a list
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </section>
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </section>
+      )}
+    </>
   );
 };
 
-const mapStateToProps = state => ({
-  boards: state.boards
+const mapStateToProps = (state) => ({
+  lists: state.lists,
+  isFetching: state.nav.isFetching,
 });
 
 const mapDispatchToProps = {
   moveList,
-  moveCard
+  moveCard,
+  getBoard,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

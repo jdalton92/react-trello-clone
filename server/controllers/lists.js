@@ -1,5 +1,6 @@
 const listsRouter = require("express").Router();
 const middleware = require("../utils/middleware");
+const jwt = require("jsonwebtoken");
 const List = require("../models/list");
 const Board = require("../models/board");
 
@@ -7,15 +8,16 @@ listsRouter.post(
   "/",
   middleware.tokenValidate,
   async (request, response, next) => {
-    const { listTitle, listIndex, boardId } = request.body;
+    const { listTitle, boardId } = request.body;
 
     const board = await Board.findById(boardId);
 
     const list = new List({
       listTitle,
-      listIndex,
       board: boardId,
     });
+
+    console.log("list", list);
 
     board.lists = board.lists.concat(list._id);
     board.lastModified = Date.now();

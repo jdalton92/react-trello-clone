@@ -3,7 +3,7 @@ import { setToken, destroyToken } from "../utils/tokenHelper";
 import userService from "../services/user";
 
 export const initUser = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const loggedUserJSON = window.localStorage.getItem("loggedUser");
 
@@ -13,47 +13,48 @@ export const initUser = () => {
 
         dispatch({
           type: "SET_USER",
-          payLoad: user
+          payLoad: user,
         });
       }
     } catch (e) {
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" }
+        payLoad: { message: e.response.data.error, type: "error" },
       });
     }
   };
 };
 
 export const trialUser = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
       type: "SET_USER",
       payLoad: {
-        token: "testusertoken",
+        token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWQiOiI1ZTgwMzY5Y2QzYTQ5OTE2MzA1MmRmMDkiLCJpYXQiOjE1ODYzMjc3Njh9.IkFCezMULWg213ejFOfTD1GCkxC6d2ZgiI0gi2I94Ek",
         email: "test@email.com",
-        id: "1"
-      }
+        id: "5e80369cd3a499163052df09",
+      },
     });
   };
 };
 
 export const createUser = ({ email, password, checkPassword }) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({
       type: "SET_LOADING",
-      payLoad: { isFetching: true }
+      payLoad: { isFetching: true },
     });
     try {
       await userService.create({
         email,
         password,
-        checkPassword
+        checkPassword,
       });
 
       const user = await loginService.login({
         email,
-        password
+        password,
       });
 
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
@@ -62,49 +63,49 @@ export const createUser = ({ email, password, checkPassword }) => {
 
       dispatch({
         type: "SET_USER",
-        payLoad: { user }
+        payLoad: { user },
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: "account created", type: "success" }
+        payLoad: { message: "account created", type: "success" },
       });
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false }
+        payLoad: { isFetching: false },
       });
     } catch (e) {
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false }
+        payLoad: { isFetching: false },
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" }
+        payLoad: { message: e.response.data.error, type: "error" },
       });
     }
   };
 };
 
 export const logoutUser = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     destroyToken();
     window.localStorage.removeItem("loggedUser");
     dispatch({
-      type: "CLEAR_USER"
+      type: "CLEAR_USER",
     });
   };
 };
 
 export const loginUser = ({ email, password }) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({
       type: "SET_LOADING",
-      payLoad: { isFetching: true }
+      payLoad: { isFetching: true },
     });
     try {
       const user = await loginService.login({
         email,
-        password
+        password,
       });
 
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
@@ -112,21 +113,21 @@ export const loginUser = ({ email, password }) => {
 
       dispatch({
         type: "SET_USER",
-        payLoad: user
+        payLoad: user,
       });
 
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false }
+        payLoad: { isFetching: false },
       });
     } catch (e) {
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false }
+        payLoad: { isFetching: false },
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" }
+        payLoad: { message: e.response.data.error, type: "error" },
       });
     }
   };
@@ -139,10 +140,10 @@ export const updateUser = (
   confirmNewPassword,
   id
 ) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({
       type: "SET_LOADING",
-      payLoad: { isFetching: true }
+      payLoad: { isFetching: true },
     });
     try {
       const user = await userService.update(
@@ -159,30 +160,30 @@ export const updateUser = (
 
       dispatch({
         type: "SET_USER",
-        data: user
+        data: user,
       });
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false }
+        payLoad: { isFetching: false },
       });
     } catch (e) {
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false }
+        payLoad: { isFetching: false },
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" }
+        payLoad: { message: e.response.data.error, type: "error" },
       });
     }
   };
 };
 
 export const deleteUser = (password, id) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({
       type: "SET_LOADING",
-      payLoad: { isFetching: true }
+      payLoad: { isFetching: true },
     });
     try {
       await userService.deleteUser(password, id);
@@ -191,20 +192,20 @@ export const deleteUser = (password, id) => {
       destroyToken();
 
       dispatch({
-        type: "CLEAR_USER"
+        type: "CLEAR_USER",
       });
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false }
+        payLoad: { isFetching: false },
       });
     } catch (e) {
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false }
+        payLoad: { isFetching: false },
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" }
+        payLoad: { message: e.response.data.error, type: "error" },
       });
     }
   };

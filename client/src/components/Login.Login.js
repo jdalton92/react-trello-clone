@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/userActions";
-import { setNotification } from "../actions/notificationActions";
 
 const LoginLogin = ({ loginUser }) => {
   const [form, setForm] = useState({});
 
-  const formHandler = e => {
+  const formHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     loginUser(form);
   };
@@ -41,7 +40,7 @@ const LoginLogin = ({ loginUser }) => {
 };
 
 const mapDispatchToProps = {
-  loginUser
+  loginUser,
 };
 
 export default connect(null, mapDispatchToProps)(LoginLogin);

@@ -19,15 +19,16 @@ const List = ({
   listId,
   addCard,
   changeListTitle,
-  deleteList
+  deleteList,
+  isFetching,
 }) => {
   const [editingTitle, setEditingTitle] = useState(false);
-  const [title, setTitle] = useState(list.title);
+  const [title, setTitle] = useState(list.listTitle);
   const [addingCard, setAddingCard] = useState(false);
 
   const toggleAddingCard = () => setAddingCard(!addingCard);
 
-  const handleAddCard = cardText => {
+  const handleAddCard = (cardText) => {
     const cardId = shortid.generate();
     toggleAddingCard();
     addCard(cardText, cardId, listId);
@@ -35,7 +36,7 @@ const List = ({
 
   const toggleEditingTitle = () => setEditingTitle(!editingTitle);
 
-  const handleChangeTitle = e => setTitle(e.target.value);
+  const handleChangeTitle = (e) => setTitle(e.target.value);
 
   const editListTitle = () => {
     toggleEditingTitle();
@@ -46,6 +47,12 @@ const List = ({
     deleteList(listId, list.cards);
   };
 
+  console.log("list:", list);
+  console.log("index", index);
+
+  if (isFetching) {
+    return null;
+  }
   return (
     <Draggable draggableId={list._id} index={index}>
       {(provided, snapshot) => (
@@ -66,7 +73,7 @@ const List = ({
             />
           ) : (
             <div className="List-Title" onClick={() => toggleEditingTitle()}>
-              {list.title}
+              {list.listTitle}
             </div>
           )}
 
@@ -105,14 +112,14 @@ const List = ({
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  list: state.lists[ownProps.listId]
+const mapStateToProps = (state) => ({
+  isFetching: state.nav.isFetching,
 });
 
 const mapDispatchToProps = {
   addCard,
   changeListTitle,
-  deleteList
+  deleteList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

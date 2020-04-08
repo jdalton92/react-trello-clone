@@ -7,8 +7,8 @@ import Notifications from "./components/Notifications";
 import Login from "./components/Login";
 import Menu from "./components/Menu";
 import Boards from "./components/Boards";
-import CreateBoard from "./components/CreateBoard";
-import ViewBoard from "./components/ViewBoard";
+import CreateBoardOverlay from "./components/CreateBoard.Overlay";
+import Board from "./components/Board";
 import Settings from "./components/Settings";
 
 import "./styles/App.scss";
@@ -21,9 +21,9 @@ const App = ({ initUser, user, boards, lists, cards }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("boards", boards);
-  console.log("lists", lists);
-  console.log("cards", cards);
+  // console.log("boards", boards);
+  // console.log("lists", lists);
+  // console.log("cards", cards);
 
   if (loading) {
     return (
@@ -47,14 +47,10 @@ const App = ({ initUser, user, boards, lists, cards }) => {
                 <>
                   <Menu />
                   <Notifications />
+                  <CreateBoardOverlay />
                   <div className="h100 w100 flex-col page-wrapper">
                     <Route exact path="/" render={() => <Boards />} />
-                    <Route
-                      exact
-                      path="/create"
-                      render={() => <CreateBoard />}
-                    />
-                    <Route path="/board/:id" render={() => <ViewBoard />} />
+                    <Route path="/board/:id" render={() => <Board />} />
                     <Route path="/settings" render={() => <Settings />} />
                   </div>
                 </>
@@ -72,16 +68,16 @@ const App = ({ initUser, user, boards, lists, cards }) => {
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.user,
     cards: state.cards,
-    lists: state.lists
+    lists: state.lists,
   };
 };
 
 const mapDispatchToProps = {
-  initUser
+  initUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

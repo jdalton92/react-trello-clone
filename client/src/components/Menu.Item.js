@@ -32,7 +32,6 @@ const MenuItem = ({ link, shrink, name, logoutUser, setBoardModal }) => {
       }
     } else if (link === "/create") {
       setBoardModal(true);
-      history.push(link);
     } else {
       history.push(link);
     }

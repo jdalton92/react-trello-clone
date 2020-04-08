@@ -8,10 +8,10 @@ const ListEditor = ({
   handleChangeTitle,
   deleteList,
   saveList,
-  onClickOutside
+  onClickOutside,
 }) => {
   const ref = useRef();
-  const handleClick = e => {
+  const handleClick = (e) => {
     const node = ref.current;
     if (node.contains(e.target)) {
       return;
@@ -23,9 +23,10 @@ const ListEditor = ({
     return () => {
       document.removeEventListener("click", handleClick, false);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onEnter = e => {
+  const onEnter = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
       saveList();
@@ -49,7 +50,7 @@ const ListEditor = ({
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  list: state.lists[ownProps.listId]
+  list: state.lists[ownProps.listId],
 });
 
 // const mapDispatchToProps = {

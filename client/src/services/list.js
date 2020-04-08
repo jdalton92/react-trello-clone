@@ -16,15 +16,6 @@ const updateList = async (payLoad) => {
   return response.data;
 };
 
-const updateList = async (payLoad) => {
-  const response = await axios.put(
-    `${baseUrl}/${payLoad._id}`,
-    payLoad,
-    getConfig()
-  );
-  return response.data;
-};
-
 const deleteList = async (id) => {
   const response = await axios.delete(`${baseUrl}/${id}`, getConfig());
   return response.data;
