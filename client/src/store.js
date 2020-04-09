@@ -13,7 +13,7 @@ const reducers = combineReducers({
   lists: listReducer,
   cards: cardReducer,
   user: userReducer,
-  notifications: notificationReducer
+  notifications: notificationReducer,
 });
 
 const store = createStore(reducers, applyMiddleware(thunk));

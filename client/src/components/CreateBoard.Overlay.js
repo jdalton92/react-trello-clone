@@ -15,7 +15,7 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
     addBoard(boardName, boardDescription);
     setBoardModal(false);
     // Figure out better way to push to board
-    setTimeout(() => history.push(`board/${board._id}`), 3000);
+    // setTimeout(() => history.push(`board/${board._id}`), 3000);
   };
 
   const handleCancel = (e) => {
@@ -40,6 +40,7 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
                 maxLength={100}
                 name="boardName"
                 onChange={({ target }) => setBoardName(target.value)}
+                autocomplete="off"
                 required
               />
               <input
@@ -49,6 +50,7 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
                 maxLength={100}
                 name="boardDescription"
                 onChange={({ target }) => setBoardDescription(target.value)}
+                autocomplete="off"
                 required
               />
               <div className="w100 flex-row">

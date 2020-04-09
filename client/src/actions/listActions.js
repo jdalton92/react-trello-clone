@@ -20,10 +20,15 @@ export const addList = (listTitle, boardId) => {
   };
 };
 
-export const changeListTitle = (listId, listTitle, changeType) => {
+export const changeListTitle = (boardId, listId, listTitle) => {
   return async (dispatch) => {
     try {
-      await listService.updateList({ listId, listTitle, changeType });
+      await listService.updateList({
+        boardId,
+        listId,
+        listTitle,
+        changeType: "changeTitle",
+      });
 
       dispatch({
         type: "CHANGE_LIST_TITLE",
@@ -53,6 +58,14 @@ export const deleteList = (listId) => {
 export const moveList = (boardId, listId, oldListIndex, newListIndex) => {
   return async (dispatch) => {
     try {
+      await listService.updateList({
+        boardId,
+        listId,
+        oldListIndex,
+        newListIndex,
+        changeType: "moveList",
+      });
+
       dispatch({
         type: "MOVE_LIST",
         payload: {

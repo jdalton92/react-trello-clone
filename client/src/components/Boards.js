@@ -21,7 +21,9 @@ const Boards = ({
     setFetching(true);
     initBoards();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [boards]);
+
+  console.log("boards", boards);
 
   const handleView = (id) => {
     setFetching(true);
@@ -91,7 +93,7 @@ const Boards = ({
 };
 
 const mapStateToProps = (state) => ({
-  boards: state.boards.boards,
+  boards: state.boards,
   isFetching: state.nav.isFetching,
 });
 

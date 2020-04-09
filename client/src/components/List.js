@@ -46,7 +46,7 @@ const List = ({
     deleteList(list._id);
   };
 
-  if (isFetching || list._id === undefined) {
+  if (isFetching) {
     return null;
   }
   return (

@@ -1,4 +1,5 @@
 import boardService from "../services/board";
+import { useHistory } from "react-router-dom";
 
 export const initBoards = () => {
   return async (dispatch) => {

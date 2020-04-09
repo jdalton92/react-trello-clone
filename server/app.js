@@ -14,6 +14,7 @@ const loginRouter = require("./controllers/login");
 const usersRouter = require("./controllers/users");
 const boardsRouter = require("./controllers/boards");
 const listsRouter = require("./controllers/lists");
+const cardsRouter = require("./controllers/cards");
 
 app.use(cors());
 app.use(express.static("build"));
@@ -42,6 +43,7 @@ app.use("/api/login", loginRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/boards", boardsRouter);
 app.use("/api/lists", listsRouter);
+app.use("/api/cards", cardsRouter);
 
 // Enable SPA to render when subdomain refreshed. Otherwise "CANNOT GET /*" error message
 app.get("*", (req, res) => {

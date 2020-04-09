@@ -55,6 +55,7 @@ listsRouter.put(
     }
 
     const board = await Board.findById(boardId);
+    console.log("board", board);
     board.lastModified = Date.now();
 
     try {
@@ -79,10 +80,14 @@ listsRouter.delete(
   async (request, response, next) => {
     try {
       // Remove List
-      const list = await List.findByIdAndRemove(request.params.id);
+      const deletedList = await List.findByIdAndRemove(request.params.id);
+      const list = await List.updateMany(
+        { listIndex: { $gt: deletedList.listIndex } },
+        { $inc: { listIndex: -1 } }
+      );
 
       // Remove list from board object
-      const board = await Board.findById(list.board);
+      const board = await Board.findById(deletedList.board);
 
       board.lists = board.lists.filter(
         (l) => l.toString() !== request.params.id
@@ -90,10 +95,10 @@ listsRouter.delete(
 
       board.lastModified = Date.now();
       board.save();
+      list.save();
 
       response.status(204).end();
     } catch (e) {
-      response.status(404).end();
       next(e);
     }
   }

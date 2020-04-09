@@ -67,6 +67,7 @@ boardsRouter.post(
     try {
       await board.save();
       await user.save();
+      response.status(201).json(board);
     } catch (e) {
       next(e);
     }
