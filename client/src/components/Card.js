@@ -27,7 +27,7 @@ const Card = ({ listId, card, index, changeCardText, deleteCard }) => {
     setEditing(false);
   };
 
-  const editCard = text => {
+  const editCard = (text) => {
     endEditing();
     changeCardText(card._id, text);
   };
@@ -64,7 +64,7 @@ const Card = ({ listId, card, index, changeCardText, deleteCard }) => {
   } else {
     return (
       <CardEditor
-        text={card.text}
+        cardText={card.text}
         onSave={editCard}
         onDelete={handleDeleteCard}
         onCancel={endEditing}
@@ -74,12 +74,12 @@ const Card = ({ listId, card, index, changeCardText, deleteCard }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  card: state.cards[ownProps.cardId]
+  card: state.cards[ownProps.cardId],
 });
 
 const mapDispatchToProps = {
   changeCardText,
-  deleteCard
+  deleteCard,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);

@@ -9,6 +9,7 @@
 }
 
 .Edit-Card-Textarea {
+  min-height: 25px;
   width: 100%;
   border: none;
   resize: none;

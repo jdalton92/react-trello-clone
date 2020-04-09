@@ -14,6 +14,7 @@ const PageHeader = ({ header, isFetching }) => {
               <div></div>
               <div></div>
             </div>
+            <div className="loading-text">loading...</div>
           </div>
         </>
       )}
@@ -22,8 +23,8 @@ const PageHeader = ({ header, isFetching }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  isFetching: state.nav.isFetching
+const mapStateToProps = (state) => ({
+  isFetching: state.nav.isFetching,
 });
 
 export default connect(mapStateToProps)(PageHeader);

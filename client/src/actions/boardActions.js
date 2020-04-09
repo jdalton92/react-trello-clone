@@ -86,8 +86,10 @@ export const addBoard = (boardName, boardDescription) => {
 export const deleteBoard = (boardId) => {
   return async (dispatch) => {
     try {
+      await boardService.deleteBoard(boardId);
+
       dispatch({
-        type: "DELETE_CARD",
+        type: "DELETE_BOARD",
         payload: { boardId },
       });
     } catch (e) {

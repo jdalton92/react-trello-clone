@@ -5,8 +5,8 @@ const listReducer = (state = [], action) => {
       return lists;
     }
     case "ADD_LIST": {
-      const { listId, listIndex, listTitle } = action.payload;
-      return [...state, { listId, listIndex, title: listTitle, cards: [] }];
+      const { _id, listIndex, listTitle } = action.payload;
+      return [...state, { _id, listIndex, listTitle, cards: [] }];
     }
     case "CHANGE_LIST_TITLE": {
       const { listId, listTitle } = action.payload;
@@ -17,8 +17,8 @@ const listReducer = (state = [], action) => {
     }
     case "DELETE_LIST": {
       const { listId } = action.payload;
-      const { [listId]: deletedList, ...restOfLists } = state;
-      return restOfLists;
+      const newLists = state.filter((l) => l._id !== listId);
+      return newLists;
     }
     case "ADD_CARD": {
       const { listId, cardId } = action.payload;
@@ -26,6 +26,24 @@ const listReducer = (state = [], action) => {
         ...state,
         [listId]: { ...state[listId], cards: [...state[listId].cards, cardId] },
       };
+    }
+    case "MOVE_LIST": {
+      const { listId, oldListIndex, newListIndex } = action.payload;
+      const otherLists = state.filter((l) => l._id !== listId);
+      const newList = state.filter((l) => l._id === listId);
+      newList[0].listIndex = newListIndex;
+      otherLists.forEach((l) => {
+        if (l.listIndex >= newListIndex && l.listIndex < oldListIndex) {
+          l.listIndex += 1;
+          return l;
+        } else if (l.listIndex > oldListIndex && l.listIndex <= newListIndex) {
+          l.listIndex -= 1;
+          return l;
+        } else {
+          return l;
+        }
+      });
+      return [...otherLists, newList[0]];
     }
     case "MOVE_CARD": {
       const {

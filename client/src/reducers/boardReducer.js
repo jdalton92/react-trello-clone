@@ -7,10 +7,10 @@ const boardReducer = (
       const { boards } = action.payload;
       return { ...state, boards };
     }
-    case "GET_BOARD_DETAILS": {
-      const { boardDetails } = action.payload;
-      return { ...state, activeBoard: { ...boardDetails } };
-    }
+    // case "GET_BOARD_DETAILS": {
+    //   const { boardDetails } = action.payload;
+    //   return { ...state, activeBoard: { ...boardDetails } };
+    // }
     case "ADD_BOARD": {
       const { boardDetails } = action.payload;
       return {
@@ -18,12 +18,12 @@ const boardReducer = (
         boards: [...state.boards, boardDetails],
       };
     }
-    case "CLEAR_BOARD": {
-      return { ...state, activeBoard: {} };
-    }
+    // case "CLEAR_BOARD": {
+    //   return { ...state, activeBoard: {} };
+    // }
     case "DELETE_BOARD": {
       const { boardId } = action.payload;
-      const boards = state.lists.filter((b) => b._id !== boardId);
+      const boards = state.boards.filter((b) => b._id !== boardId);
       return { ...state, boards };
     }
     default:

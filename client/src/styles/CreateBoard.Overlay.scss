@@ -31,9 +31,11 @@
 }
 
 .content button {
-  margin-top: 5px;
+  margin-top: 15px;
   max-width: 175px;
-  height: 30px;
+  height: 40px;
+  border-radius: 10px;
+  outline: none;
 }
 
 .create-new-board-btn {

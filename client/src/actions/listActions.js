@@ -3,13 +3,15 @@ import listService from "../services/list";
 export const addList = (listTitle, boardId) => {
   return async (dispatch) => {
     try {
-      const list = listService.saveList({ listTitle, boardId });
+      const list = await listService.saveList({ listTitle, boardId });
+      const { _id, listIndex } = list;
 
       dispatch({
         type: "ADD_LIST",
         payload: {
-          listId: list._id,
+          _id,
           listTitle,
+          listIndex,
         },
       });
     } catch (e) {
@@ -18,9 +20,11 @@ export const addList = (listTitle, boardId) => {
   };
 };
 
-export const changeListTitle = (listId, listTitle) => {
+export const changeListTitle = (listId, listTitle, changeType) => {
   return async (dispatch) => {
     try {
+      await listService.updateList({ listId, listTitle, changeType });
+
       dispatch({
         type: "CHANGE_LIST_TITLE",
         payload: { listId, listTitle },
@@ -31,12 +35,14 @@ export const changeListTitle = (listId, listTitle) => {
   };
 };
 
-export const deleteList = (listId, cards) => {
+export const deleteList = (listId) => {
   return async (dispatch) => {
     try {
+      await listService.deleteList(listId);
+
       dispatch({
         type: "DELETE_LIST",
-        payload: { listId, cards },
+        payload: { listId },
       });
     } catch (e) {
       console.log(e);
@@ -44,12 +50,13 @@ export const deleteList = (listId, cards) => {
   };
 };
 
-export const moveList = (oldListIndex, newListIndex) => {
+export const moveList = (boardId, listId, oldListIndex, newListIndex) => {
   return async (dispatch) => {
     try {
       dispatch({
         type: "MOVE_LIST",
         payload: {
+          listId,
           oldListIndex,
           newListIndex,
         },

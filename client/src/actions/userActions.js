@@ -13,13 +13,13 @@ export const initUser = () => {
 
         dispatch({
           type: "SET_USER",
-          payLoad: user,
+          payload: { user },
         });
       }
     } catch (e) {
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" },
+        payload: { message: e.response.data.error, type: "error" },
       });
     }
   };
@@ -27,13 +27,20 @@ export const initUser = () => {
 
 export const trialUser = () => {
   return (dispatch) => {
+    const user = {
+      token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWQiOiI1ZTgwMzY5Y2QzYTQ5OTE2MzA1MmRmMDkiLCJpYXQiOjE1ODYzMjc3Njh9.IkFCezMULWg213ejFOfTD1GCkxC6d2ZgiI0gi2I94Ek",
+      email: "test@email.com",
+      id: "5e80369cd3a499163052df09",
+    };
+
+    setToken(user.token);
+
+    window.localStorage.setItem("loggedUser", JSON.stringify(user));
     dispatch({
       type: "SET_USER",
-      payLoad: {
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWQiOiI1ZTgwMzY5Y2QzYTQ5OTE2MzA1MmRmMDkiLCJpYXQiOjE1ODYzMjc3Njh9.IkFCezMULWg213ejFOfTD1GCkxC6d2ZgiI0gi2I94Ek",
-        email: "test@email.com",
-        id: "5e80369cd3a499163052df09",
+      payload: {
+        user,
       },
     });
   };
@@ -43,7 +50,7 @@ export const createUser = ({ email, password, checkPassword }) => {
   return async (dispatch) => {
     dispatch({
       type: "SET_LOADING",
-      payLoad: { isFetching: true },
+      payload: { isFetching: true },
     });
     try {
       await userService.create({
@@ -63,25 +70,18 @@ export const createUser = ({ email, password, checkPassword }) => {
 
       dispatch({
         type: "SET_USER",
-        payLoad: { user },
+        payload: { user },
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: "account created", type: "success" },
+        payload: { message: "account created", type: "success" },
       });
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false },
+        payload: { isFetching: false },
       });
     } catch (e) {
-      dispatch({
-        type: "SET_LOADING",
-        payLoad: { isFetching: false },
-      });
-      dispatch({
-        type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" },
-      });
+      console.log(e);
     }
   };
 };
@@ -100,7 +100,7 @@ export const loginUser = ({ email, password }) => {
   return async (dispatch) => {
     dispatch({
       type: "SET_LOADING",
-      payLoad: { isFetching: true },
+      payload: { isFetching: true },
     });
     try {
       const user = await loginService.login({
@@ -113,21 +113,21 @@ export const loginUser = ({ email, password }) => {
 
       dispatch({
         type: "SET_USER",
-        payLoad: user,
+        payload: user,
       });
 
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false },
+        payload: { isFetching: false },
       });
     } catch (e) {
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false },
+        payload: { isFetching: false },
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" },
+        payload: { message: e.response.data.error, type: "error" },
       });
     }
   };
@@ -143,7 +143,7 @@ export const updateUser = (
   return async (dispatch) => {
     dispatch({
       type: "SET_LOADING",
-      payLoad: { isFetching: true },
+      payload: { isFetching: true },
     });
     try {
       const user = await userService.update(
@@ -160,20 +160,20 @@ export const updateUser = (
 
       dispatch({
         type: "SET_USER",
-        data: user,
+        payload: { user },
       });
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false },
+        payload: { isFetching: false },
       });
     } catch (e) {
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false },
+        payload: { isFetching: false },
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" },
+        payload: { message: e.response.data.error, type: "error" },
       });
     }
   };
@@ -183,7 +183,7 @@ export const deleteUser = (password, id) => {
   return async (dispatch) => {
     dispatch({
       type: "SET_LOADING",
-      payLoad: { isFetching: true },
+      payload: { isFetching: true },
     });
     try {
       await userService.deleteUser(password, id);
@@ -196,16 +196,16 @@ export const deleteUser = (password, id) => {
       });
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false },
+        payload: { isFetching: false },
       });
     } catch (e) {
       dispatch({
         type: "SET_LOADING",
-        payLoad: { isFetching: false },
+        payload: { isFetching: false },
       });
       dispatch({
         type: "SET_NOTIFICATION",
-        payLoad: { message: e.response.data.error, type: "error" },
+        payload: { message: e.response.data.error, type: "error" },
       });
     }
   };

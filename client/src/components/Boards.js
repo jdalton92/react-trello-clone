@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import PageHeader from "./PageHeader";
-import { initBoards } from "../actions/boardActions";
+import { initBoards, deleteBoard } from "../actions/boardActions";
 import { setNotification } from "../actions/notificationActions";
 import "../styles/Boards.scss";
 import { setFetching } from "../actions/navActions";
@@ -11,6 +11,7 @@ const Boards = ({
   setNotification,
   initBoards,
   boards,
+  deleteBoard,
   setFetching,
   isFetching,
 }) => {
@@ -19,6 +20,7 @@ const Boards = ({
   useState(() => {
     setFetching(true);
     initBoards();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleView = (id) => {
@@ -26,22 +28,21 @@ const Boards = ({
     history.push(`/board/${id}`);
   };
 
-  const handleDelete = (e) => {
-    e.preventDefault();
-    const confirm = window.confirm("Delete?");
+  const handleDelete = (id, boardName) => {
+    const confirm = window.confirm(`Delete ${boardName}?`);
     if (confirm) {
+      deleteBoard(id);
       setNotification({
         type: "success",
-        message: "deleted",
+        message: `${boardName} deleted`,
       });
     }
   };
+
   return (
     <>
       <PageHeader header={"Boards"} />
-      {isFetching ? (
-        <div>loading...</div>
-      ) : (
+      {isFetching ? null : (
         <section className="h100 w100 flex-col boards-wrapper">
           {boards.length === 0 && <div>no saved boards</div>}
           {boards.length > 0 && (
@@ -73,7 +74,7 @@ const Boards = ({
                       </div>
                       <div
                         className="boards-table-action delete-action"
-                        onClick={handleDelete}
+                        onClick={() => handleDelete(b._id, b.boardName)}
                       >
                         Delete
                       </div>
@@ -97,6 +98,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   setNotification,
   initBoards,
+  deleteBoard,
   setFetching,
 };
 

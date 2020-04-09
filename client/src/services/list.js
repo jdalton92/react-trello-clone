@@ -2,15 +2,15 @@ import axios from "axios";
 import { getConfig } from "../utils/tokenHelper";
 const baseUrl = "/api/lists";
 
-const saveList = async (payLoad) => {
-  const response = await axios.post(baseUrl, payLoad, getConfig());
+const saveList = async (payload) => {
+  const response = await axios.post(baseUrl, payload, getConfig());
   return response.data;
 };
 
-const updateList = async (payLoad) => {
+const updateList = async (payload) => {
   const response = await axios.put(
-    `${baseUrl}/${payLoad._id}`,
-    payLoad,
+    `${baseUrl}/${payload.listId}`,
+    payload,
     getConfig()
   );
   return response.data;

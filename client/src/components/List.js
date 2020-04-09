@@ -16,7 +16,6 @@ import "../styles/List.css";
 const List = ({
   list,
   index,
-  listId,
   addCard,
   changeListTitle,
   deleteList,
@@ -31,7 +30,7 @@ const List = ({
   const handleAddCard = (cardText) => {
     const cardId = shortid.generate();
     toggleAddingCard();
-    addCard(cardText, cardId, listId);
+    addCard(cardText, cardId, list._id);
   };
 
   const toggleEditingTitle = () => setEditingTitle(!editingTitle);
@@ -40,17 +39,14 @@ const List = ({
 
   const editListTitle = () => {
     toggleEditingTitle();
-    changeListTitle(listId, title);
+    changeListTitle(list._id, title);
   };
 
   const handleDeleteList = () => {
-    deleteList(listId, list.cards);
+    deleteList(list._id);
   };
 
-  console.log("list:", list);
-  console.log("index", index);
-
-  if (isFetching) {
+  if (isFetching || list._id === undefined) {
     return null;
   }
   return (

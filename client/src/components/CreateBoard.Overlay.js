@@ -14,7 +14,8 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
     e.preventDefault();
     addBoard(boardName, boardDescription);
     setBoardModal(false);
-    history.push(`board/${board._id}`);
+    // Figure out better way to push to board
+    setTimeout(() => history.push(`board/${board._id}`), 3000);
   };
 
   const handleCancel = (e) => {
@@ -27,12 +28,13 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
       {modal ? (
         <div className="overlay">
           <div className="modal">
+            <h2>Create Board</h2>
             <form
-              className="content w100 h100 flex-col-center"
+              className="content w100 h80 flex-col-center form-element"
               onSubmit={handleSubmit}
             >
               <input
-                className="w100"
+                className="w100 form-control"
                 placeholder="Board Name"
                 type="text"
                 maxLength={100}
@@ -41,7 +43,7 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
                 required
               />
               <input
-                className="w100"
+                className="w100 form-control"
                 placeholder="Board Description"
                 type="text"
                 maxLength={100}

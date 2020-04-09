@@ -1,14 +1,10 @@
-const initialState2 = { password: "password", email: "test@email.com" };
-
-const initialState = null;
-
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = null, action) => {
   switch (action.type) {
     case "SET_USER":
-      const user = { ...action.payLoad };
+      const { user } = action.payload;
       return user;
     case "CLEAR_USER":
-      return initialState;
+      return null;
     default:
       return state;
   }

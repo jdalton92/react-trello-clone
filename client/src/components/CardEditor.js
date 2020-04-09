@@ -5,19 +5,15 @@ import { connect } from "react-redux";
 import TextareaAutosize from "react-textarea-autosize";
 import EditButtons from "./EditButtons";
 
-const CardEditor = props => {
-  const [text, setText] = useState(props.text || "");
+const CardEditor = ({ cardText, onSave, onCancel, onDelete, adding }) => {
+  const [text, setText] = useState(cardText || "");
 
-  const handleChangeText = e => setText(e.target.value);
-
-  const onEnter = e => {
+  const onEnter = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      props.onSave(text);
+      onSave(text);
     }
   };
-
-  const { onSave, onCancel, onDelete, adding } = props;
 
   return (
     <div className="Edit-Card">
@@ -27,7 +23,7 @@ const CardEditor = props => {
           className="Edit-Card-Textarea"
           placeholder="Enter the text for this card..."
           value={text}
-          onChange={handleChangeText}
+          onChange={({ target }) => setText(target.value)}
           onKeyDown={onEnter}
         />
       </div>

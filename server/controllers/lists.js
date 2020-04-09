@@ -1,6 +1,5 @@
 const listsRouter = require("express").Router();
 const middleware = require("../utils/middleware");
-const jwt = require("jsonwebtoken");
 const List = require("../models/list");
 const Board = require("../models/board");
 
@@ -11,14 +10,15 @@ listsRouter.post(
     const { listTitle, boardId } = request.body;
 
     const board = await Board.findById(boardId);
+    const listIndex = board.lists.length;
 
     const list = new List({
       listTitle,
       board: boardId,
+      listIndex,
     });
 
     console.log("list", list);
-
     board.lists = board.lists.concat(list._id);
     board.lastModified = Date.now();
 
@@ -36,14 +36,23 @@ listsRouter.put(
   "/:id",
   middleware.tokenValidate,
   async (request, response, next) => {
-    const { listTitle, listIndex, boardId, cards } = request.body;
+    const { listTitle, listIndex, boardId, cards, changeType } = request.body;
 
-    const updatedList = {
-      listTitle,
-      listIndex,
-      board: boardId,
-      cards,
-    };
+    // Update list object depending on change type
+    let updatedList = {};
+    if (changeType === "moveList") {
+      updatedList = {
+        listIndex,
+      };
+    } else if (changeType === "changeTitle") {
+      updatedList = {
+        listTitle,
+      };
+    } else if (changeType === "saveCards") {
+      updatedList = {
+        cards,
+      };
+    }
 
     const board = await Board.findById(boardId);
     board.lastModified = Date.now();
@@ -69,22 +78,22 @@ listsRouter.delete(
   middleware.tokenValidate,
   async (request, response, next) => {
     try {
-      const decodedToken = jwt.verify(request.token, process.env.SECRET);
+      // Remove List
+      const list = await List.findByIdAndRemove(request.params.id);
 
-      if (board.user.toString() === decodedToken.id) {
-        await List.findByIdAndRemove(request.params.id);
+      // Remove list from board object
+      const board = await Board.findById(list.board);
 
-        // Remove list from board object
-        const board = await Board.findById(request.params.id);
-        board.lists = board.lists.filter((l) => l !== decodedToken.id);
-        board.lastModified = Date.now();
-        board.save();
+      board.lists = board.lists.filter(
+        (l) => l.toString() !== request.params.id
+      );
 
-        response.status(204).end();
-      } else {
-        response.status(404).end();
-      }
+      board.lastModified = Date.now();
+      board.save();
+
+      response.status(204).end();
     } catch (e) {
+      response.status(404).end();
       next(e);
     }
   }

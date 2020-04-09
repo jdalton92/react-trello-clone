@@ -2,6 +2,7 @@ const boardsRouter = require("express").Router();
 const middleware = require("../utils/middleware");
 const jwt = require("jsonwebtoken");
 const Board = require("../models/board");
+const List = require("../models/list");
 const User = require("../models/user");
 
 boardsRouter.get(
@@ -82,6 +83,7 @@ boardsRouter.delete(
       const board = await Board.findById(request.params.id);
 
       if (board.user.toString() === decodedToken.id) {
+        await List.deleteMany({ board: request.params.id });
         await Board.findByIdAndRemove(request.params.id);
         response.status(204).end();
       } else {
