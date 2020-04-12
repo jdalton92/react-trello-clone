@@ -23,8 +23,6 @@ const Boards = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boards]);
 
-  console.log("boards", boards);
-
   const handleView = (id) => {
     setFetching(true);
     history.push(`/board/${id}`);

@@ -8,7 +8,7 @@ import { changeCardText, deleteCard } from "../actions/cardActions";
 
 import CardEditor from "./CardEditor";
 
-const Card = ({ listId, card, index, changeCardText, deleteCard }) => {
+const Card = ({ listId, card, changeCardText, deleteCard }) => {
   const [hover, setHover] = useState(false);
   const [editing, setEditing] = useState(false);
   const [text, setText] = useState("");
@@ -19,7 +19,7 @@ const Card = ({ listId, card, index, changeCardText, deleteCard }) => {
   const startEditing = () => {
     setHover(false);
     setEditing(true);
-    setText(card.text);
+    setText(card.cardText);
   };
 
   const endEditing = () => {
@@ -38,7 +38,7 @@ const Card = ({ listId, card, index, changeCardText, deleteCard }) => {
 
   if (!editing) {
     return (
-      <Draggable draggableId={card._id} index={index}>
+      <Draggable draggableId={card._id} index={card.cardIndex}>
         {(provided, snapshot) => (
           <div
             ref={provided.innerRef}
@@ -56,7 +56,7 @@ const Card = ({ listId, card, index, changeCardText, deleteCard }) => {
               </div>
             )}
 
-            {card.text}
+            {card.cardText}
           </div>
         )}
       </Draggable>
@@ -64,22 +64,23 @@ const Card = ({ listId, card, index, changeCardText, deleteCard }) => {
   } else {
     return (
       <CardEditor
-        cardText={card.text}
+        cardText={card.cardText}
         onSave={editCard}
         onDelete={handleDeleteCard}
         onCancel={endEditing}
+        listId={listId}
       />
     );
   }
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  card: state.cards[ownProps.cardId],
-});
+// const mapStateToProps = (state, ownProps) => ({
+//   card: state.cards[ownProps.cardId],
+// });
 
 const mapDispatchToProps = {
   changeCardText,
   deleteCard,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(null, mapDispatchToProps)(Card);

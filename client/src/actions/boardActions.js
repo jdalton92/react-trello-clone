@@ -1,5 +1,4 @@
 import boardService from "../services/board";
-import { useHistory } from "react-router-dom";
 
 export const initBoards = () => {
   return async (dispatch) => {
@@ -36,9 +35,20 @@ export const getBoard = (id) => {
     try {
       const { lists } = await boardService.getBoard(id);
 
+      let cards = [];
+      lists
+        .filter((l) => l.cards.length)
+        .forEach((l) => {
+          cards = [...cards, ...l.cards];
+        });
+
       dispatch({
         type: "INIT_LISTS",
         payload: { lists },
+      });
+      dispatch({
+        type: "INIT_CARDS",
+        payload: { cards },
       });
       dispatch({
         type: "SET_LOADING",

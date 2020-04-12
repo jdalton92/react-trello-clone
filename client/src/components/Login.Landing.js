@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 const LoginLanding = ({ setLogin, trialUser }) => {
   const history = useHistory();
-  const handleTestFirst = e => {
+  const handleTestFirst = (e) => {
     e.preventDefault();
     trialUser();
     history.push("/");
@@ -45,7 +45,7 @@ const LoginLanding = ({ setLogin, trialUser }) => {
 
 const mapDispatchToProps = {
   setLogin,
-  trialUser
+  trialUser,
 };
 
 export default connect(null, mapDispatchToProps)(LoginLanding);

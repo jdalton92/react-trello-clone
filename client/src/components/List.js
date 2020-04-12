@@ -9,12 +9,11 @@ import Card from "./Card";
 import CardEditor from "./CardEditor";
 import ListEditor from "./ListEditor";
 
-import shortid from "shortid";
-
 import "../styles/List.css";
 
 const List = ({
   list,
+  cards,
   index,
   addCard,
   changeListTitle,
@@ -28,9 +27,9 @@ const List = ({
   const toggleAddingCard = () => setAddingCard(!addingCard);
 
   const handleAddCard = (cardText) => {
-    const cardId = shortid.generate();
     toggleAddingCard();
-    addCard(cardText, cardId, list._id);
+    console.log("add card");
+    addCard(cardText, list._id);
   };
 
   const toggleEditingTitle = () => setEditingTitle(!editingTitle);
@@ -76,14 +75,9 @@ const List = ({
           <Droppable droppableId={list._id}>
             {(provided, _snapshot) => (
               <div ref={provided.innerRef}>
-                {list.cards &&
-                  list.cards.map((cardId, index) => (
-                    <Card
-                      key={cardId}
-                      cardId={cardId}
-                      index={index}
-                      listId={list._id}
-                    />
+                {cards.length > 0 &&
+                  cards.map((c, i) => (
+                    <Card key={i} card={c} listId={list._id} />
                   ))}
 
                 {provided.placeholder}
@@ -95,6 +89,7 @@ const List = ({
             <CardEditor
               onSave={handleAddCard}
               onCancel={toggleAddingCard}
+              listId={list._id}
               adding
             />
           ) : (
@@ -108,8 +103,11 @@ const List = ({
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   isFetching: state.nav.isFetching,
+  cards: state.cards
+    .filter((c) => c.list === ownProps.list._id)
+    .sort((a, b) => a.cardIndex - b.cardIndex),
 });
 
 const mapDispatchToProps = {

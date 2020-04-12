@@ -15,8 +15,8 @@ const Menu = ({ shrink, toggleMenu }) => {
         </StyledPointer>
       </div>
       <div className="w100 flex-col">
-        <MenuItem name={"Saved Boards"} link={"/"} />
         <MenuItem name={"Create Board"} link={"/create"} />
+        <MenuItem name={"Saved Boards"} link={"/"} />
         <MenuItem name={"User Settings"} link={"/settings"} />
         <MenuItem name={"GitHub"} />
         <MenuItem name={"Logout"} link={"/"} />

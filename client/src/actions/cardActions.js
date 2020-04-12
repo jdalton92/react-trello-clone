@@ -1,9 +1,21 @@
-export const addCard = (cardText, cardId, listId) => {
+import cardService from "../services/card";
+
+export const addCard = (cardText, listId) => {
   return async (dispatch) => {
+    const newCard = await cardService.newCard({
+      listId,
+      cardText,
+    });
+
     try {
       dispatch({
         type: "ADD_CARD",
-        payload: { cardText, cardId, listId },
+        payload: {
+          _id: newCard._id,
+          cardText,
+          listId,
+          cardIndex: newCard.cardIndex,
+        },
       });
     } catch (e) {
       console.log(e);
@@ -12,18 +24,28 @@ export const addCard = (cardText, cardId, listId) => {
 };
 
 export const moveCard = (
-  sourceListId,
-  destListId,
+  cardId,
+  oldListId,
+  newListId,
   oldCardIndex,
   newCardIndex
 ) => {
   return async (dispatch) => {
+    await cardService.updateCard({
+      cardId,
+      oldListId,
+      newListId,
+      oldCardIndex,
+      newCardIndex,
+      changeType: "moveCard",
+    });
+
     try {
       dispatch({
         type: "MOVE_CARD",
         payload: {
-          sourceListId,
-          destListId,
+          oldListId,
+          newListId,
           oldCardIndex,
           newCardIndex,
         },
@@ -36,10 +58,16 @@ export const moveCard = (
 
 export const changeCardText = (cardId, cardText) => {
   return async (dispatch) => {
+    await cardService.updateCard({
+      cardId,
+      cardText,
+      changeType: "changeTitle",
+    });
+
     try {
       dispatch({
         type: "CHANGE_CARD_TEXT",
-        payload: { cardId, cardText },
+        payload: { _id: cardId, cardText },
       });
     } catch (e) {
       console.log(e);

@@ -40,7 +40,7 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
                 maxLength={100}
                 name="boardName"
                 onChange={({ target }) => setBoardName(target.value)}
-                autocomplete="off"
+                autoComplete="off"
                 required
               />
               <input
@@ -50,7 +50,7 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
                 maxLength={100}
                 name="boardDescription"
                 onChange={({ target }) => setBoardDescription(target.value)}
-                autocomplete="off"
+                autoComplete="off"
                 required
               />
               <div className="w100 flex-row">

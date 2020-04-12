@@ -3,6 +3,7 @@ const middleware = require("../utils/middleware");
 const jwt = require("jsonwebtoken");
 const Board = require("../models/board");
 const List = require("../models/list");
+const Card = require("../models/card");
 const User = require("../models/user");
 
 boardsRouter.get(
@@ -49,7 +50,6 @@ boardsRouter.post(
   middleware.tokenValidate,
   async (request, response, next) => {
     const { boardName, boardDescription } = request.body;
-    console.log("request.body", request.body);
 
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
 
@@ -82,10 +82,14 @@ boardsRouter.delete(
       const decodedToken = jwt.verify(request.token, process.env.SECRET);
 
       const board = await Board.findById(request.params.id);
+      const user = await User.findById(decodedToken.id);
+      user.boards = user.boards.filter((b) => b !== request.params.id);
 
       if (board.user.toString() === decodedToken.id) {
+        await Card.deleteMany({ list: { $in: board.lists } });
         await List.deleteMany({ board: request.params.id });
         await Board.findByIdAndRemove(request.params.id);
+        user.save();
         response.status(204).end();
       } else {
         response.status(404).end();

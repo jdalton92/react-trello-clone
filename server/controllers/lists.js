@@ -2,6 +2,7 @@ const listsRouter = require("express").Router();
 const middleware = require("../utils/middleware");
 const List = require("../models/list");
 const Board = require("../models/board");
+const Card = require("../models/card");
 
 listsRouter.post(
   "/",
@@ -18,7 +19,6 @@ listsRouter.post(
       listIndex,
     });
 
-    console.log("list", list);
     board.lists = board.lists.concat(list._id);
     board.lastModified = Date.now();
 
@@ -36,26 +36,46 @@ listsRouter.put(
   "/:id",
   middleware.tokenValidate,
   async (request, response, next) => {
-    const { listTitle, listIndex, boardId, cards, changeType } = request.body;
+    const {
+      listTitle,
+      oldListIndex,
+      newListIndex,
+      boardId,
+      changeType,
+    } = request.body;
 
     // Update list object depending on change type
     let updatedList = {};
     if (changeType === "moveList") {
       updatedList = {
-        listIndex,
+        listIndex: newListIndex,
       };
+      await List.updateMany(
+        {
+          $and: [
+            { listIndex: { $ne: oldListIndex } },
+            { listIndex: { $gte: newListIndex } },
+            { listIndex: { $lt: oldListIndex } },
+          ],
+        },
+        { $inc: { listIndex: +1 } }
+      );
+      await List.updateMany(
+        {
+          $and: [
+            { listIndex: { $gt: oldListIndex } },
+            { listIndex: { $lte: newListIndex } },
+          ],
+        },
+        { $inc: { listIndex: -1 } }
+      );
     } else if (changeType === "changeTitle") {
       updatedList = {
         listTitle,
       };
-    } else if (changeType === "saveCards") {
-      updatedList = {
-        cards,
-      };
     }
 
     const board = await Board.findById(boardId);
-    console.log("board", board);
     board.lastModified = Date.now();
 
     try {
@@ -81,11 +101,13 @@ listsRouter.delete(
     try {
       // Remove List
       const deletedList = await List.findByIdAndRemove(request.params.id);
-      const list = await List.updateMany(
+      // Update remaing lists index
+      await List.updateMany(
         { listIndex: { $gt: deletedList.listIndex } },
         { $inc: { listIndex: -1 } }
       );
-
+      // Remove cards from deleted list
+      await Card.deleteMany({ list: request.params.id });
       // Remove list from board object
       const board = await Board.findById(deletedList.board);
 
@@ -95,8 +117,6 @@ listsRouter.delete(
 
       board.lastModified = Date.now();
       board.save();
-      list.save();
-
       response.status(204).end();
     } catch (e) {
       next(e);

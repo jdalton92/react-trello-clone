@@ -2,13 +2,18 @@ import axios from "axios";
 import { getConfig } from "../utils/tokenHelper";
 const baseUrl = "/api/cards";
 
-const updateCards = async (payload) => {
+const newCard = async (payload) => {
+  const response = await axios.post(baseUrl, payload, getConfig());
+  return response.data;
+};
+
+const updateCard = async (payload) => {
   const response = await axios.put(
-    `${baseUrl}/${payload.listId}`,
+    `${baseUrl}/${payload.cardId}`,
     payload,
     getConfig()
   );
   return response.data;
 };
 
-export default { updateCards };
+export default { newCard, updateCard };

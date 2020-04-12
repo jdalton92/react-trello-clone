@@ -8,17 +8,17 @@ import {
   required,
   minLength,
   isEmail,
-  composeValidators
+  composeValidators,
 } from "../utils/formValidator";
 import "../styles/Settings.scss";
 
 const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
   const userDetails = {
     oldEmail: user.email,
-    id: user.id
+    id: user.id,
   };
 
-  const handleEmailChange = async values => {
+  const handleEmailChange = async (values) => {
     // React final form handles e.preventDefault()
     const confirm = window.confirm(
       `Change email from ${userDetails.oldEmail} to ${values.newEmail}?`
@@ -26,19 +26,19 @@ const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
     if (confirm) {
       await updateUser({
         newEmail: values.newEmail,
-        ...userDetails
+        ...userDetails,
       });
     }
   };
 
-  const handlePasswordChange = async values => {
+  const handlePasswordChange = async (values) => {
     // React final form handles e.preventDefault()
     const { oldPassword, newPassword, checkPassword } = values;
     await updateUser({
       oldPassword,
       newPassword,
       checkPassword,
-      ...userDetails
+      ...userDetails,
     });
   };
 
@@ -107,7 +107,7 @@ const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
               <div className="form-inner-container">
                 <FinalForm
                   onSubmit={handlePasswordChange}
-                  validate={values => {
+                  validate={(values) => {
                     const errors = {};
                     if (!values.checkPassword) {
                       errors.checkPassword = "Required";
@@ -202,9 +202,9 @@ const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
                               type="password"
                               {...input}
                             />
-                            {meta.error && meta.touched && (
-                              <span className="form-error">{meta.error}</span>
-                            )}
+                            <div className="form-error">
+                              {meta.error && meta.touched && meta.error}
+                            </div>
                           </div>
                         )}
                       </Field>
@@ -225,16 +225,16 @@ const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.user,
-    isFetching: state.nav.isFetching
+    isFetching: state.nav.isFetching,
   };
 };
 
 const mapDispatchToProps = {
   updateUser,
-  deleteUser
+  deleteUser,
   //   setNotification
 };
 

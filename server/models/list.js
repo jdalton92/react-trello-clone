@@ -14,15 +14,14 @@ const listSchema = mongoose.Schema({
   },
   cards: [
     {
-      cardText: {
-        type: String,
-      },
-      cardIndex: {
-        type: Number,
-        required: true,
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Card",
     },
   ],
+  board: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Board",
+  },
 });
 
 const List = mongoose.model("List", listSchema);

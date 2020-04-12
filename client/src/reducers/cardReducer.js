@@ -1,55 +1,88 @@
-const cardReducer = (state = {}, action) => {
+const cardReducer = (state = [], action) => {
   switch (action.type) {
+    case "INIT_CARDS": {
+      const { cards } = action.payload;
+      return cards;
+    }
     case "ADD_CARD": {
-      const { cardText, cardId } = action.payload;
-      return { ...state, [cardId]: { text: cardText, _id: cardId } };
+      const { _id, cardText, listId, cardIndex } = action.payload;
+      return [...state, { _id, list: listId, cardText, cardIndex }];
     }
     case "CHANGE_CARD_TEXT": {
-      const { cardText, cardId } = action.payload;
-      return { ...state, [cardId]: { ...state[cardId], text: cardText } };
+      const { cardText, _id } = action.payload;
+      const updatedCard = state.filter((c) => c._id === _id);
+      const restofCards = state.filter((c) => c._id !== _id);
+      updatedCard[0].cardText = cardText;
+      return [...restofCards, ...updatedCard];
     }
     case "DELETE_CARD": {
       const { cardId } = action.payload;
       const { [cardId]: deletedCard, ...restOfCards } = state;
       return restOfCards;
     }
-    // Find every card from the deleted list and remove it
-    case "DELETE_CARD": {
-      const { cards: cardIds } = action.payload;
-      return Object.keys(state)
-        .filter((cardId) => !cardIds.includes(cardId))
-        .reduce(
-          (newState, cardId) => ({ ...newState, [cardId]: state[cardId] }),
-          {}
-        );
-    }
     case "MOVE_CARD": {
       const {
+        oldListId,
+        newListId,
         oldCardIndex,
         newCardIndex,
-        sourceListId,
-        destListId,
       } = action.payload;
       // Move within the same list
-      if (sourceListId === destListId) {
-        const newCards = Array.from(state[sourceListId].cards);
-        const [removedCard] = newCards.splice(oldCardIndex, 1);
-        newCards.splice(newCardIndex, 0, removedCard);
-        return {
-          ...state,
-          [sourceListId]: { ...state[sourceListId], cards: newCards },
-        };
+      if (oldListId === newListId) {
+        const activeListCards = state.filter((c) => c.list === oldListId);
+        const remainingCards = state.filter((c) => c.list !== oldListId);
+        const newCard = activeListCards.filter(
+          (c) => c.cardIndex === oldCardIndex
+        );
+        const otherCards = activeListCards.filter(
+          (c) => c.cardIndex !== oldCardIndex
+        );
+        newCard[0].cardIndex = newCardIndex;
+        otherCards.forEach((c) => {
+          if (c.cardIndex >= newCardIndex && c.cardIndex < oldCardIndex) {
+            c.cardIndex += 1;
+            return c;
+          } else if (
+            c.cardIndex > oldCardIndex &&
+            c.cardIndex <= newCardIndex
+          ) {
+            c.cardIndex -= 1;
+            return c;
+          } else {
+            return c;
+          }
+        });
+        return [...remainingCards, ...otherCards, newCard[0]];
       }
-      // Move card from one list to another
-      const sourceCards = Array.from(state[sourceListId].cards);
-      const [removedCard] = sourceCards.splice(oldCardIndex, 1);
-      const destinationCards = Array.from(state[destListId].cards);
-      destinationCards.splice(newCardIndex, 0, removedCard);
-      return {
-        ...state,
-        [sourceListId]: { ...state[sourceListId], cards: sourceCards },
-        [destListId]: { ...state[destListId], cards: destinationCards },
-      };
+
+      // If card moved to other list
+      const oldListCards = state.filter((c) => c.list === oldListId);
+      const newListCards = state.filter((c) => c.list === newListId);
+      const remainingCards = state.filter(
+        (c) => c.list !== oldListId && c.list !== newListId
+      );
+      // Update old list cardIndex
+      oldListCards.forEach((c) => {
+        if (c.cardIndex > oldCardIndex) {
+          c.cardIndex -= 1;
+          return c;
+        } else if (c.cardIndex === oldCardIndex) {
+          c.list = newListId;
+          return c;
+        } else {
+          return c;
+        }
+      });
+      // Update new list cardIndex
+      newListCards.forEach((c) => {
+        if (c.cardIndex >= newCardIndex) {
+          c.cardIndex += 1;
+          return c;
+        } else {
+          return c;
+        }
+      });
+      return [...oldListCards, ...newListCards, ...remainingCards];
     }
     default:
       return state;

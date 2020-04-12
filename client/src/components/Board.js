@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import listService from "../services/list";
 import { connect } from "react-redux";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
@@ -22,9 +21,7 @@ const Board = ({ moveList, moveCard, getBoard, lists, isFetching }) => {
 
   const toggleAddingList = () => setAddingList(!addingList);
 
-  console.log("lists", lists);
-
-  const handleDragEnd = ({ source, destination, type }) => {
+  const handleDragEnd = ({ draggableId, source, destination, type }) => {
     // dropped outside the allowed zones
     if (!destination) return;
 
@@ -44,27 +41,12 @@ const Board = ({ moveList, moveCard, getBoard, lists, isFetching }) => {
       source.droppableId !== destination.droppableId
     ) {
       moveCard(
+        draggableId,
         source.droppableId,
         destination.droppableId,
         source.index,
         destination.index
       );
-    }
-  };
-
-  // TODO
-  // SAVE FUNCTIONALITY --> MAKE SAVE BUTTON
-  const saveCards = (listId, cards, changeType) => {
-    try {
-      lists.forEach(async (l) => {
-        await listService.updateList({
-          listId: l._id,
-          cards: l.cards,
-          changeType: "saveCards",
-        });
-      });
-    } catch (e) {
-      console.log(e);
     }
   };
 
