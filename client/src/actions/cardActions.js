@@ -31,7 +31,7 @@ export const moveCard = (
   newCardIndex
 ) => {
   return async (dispatch) => {
-    await cardService.updateCard({
+    cardService.updateCard({
       cardId,
       oldListId,
       newListId,
@@ -58,7 +58,7 @@ export const moveCard = (
 
 export const changeCardText = (cardId, cardText) => {
   return async (dispatch) => {
-    await cardService.updateCard({
+    cardService.updateCard({
       cardId,
       cardText,
       changeType: "changeTitle",
@@ -77,6 +77,9 @@ export const changeCardText = (cardId, cardText) => {
 
 export const deleteCard = (cardId, listId) => {
   return async (dispatch) => {
+    cardService.deleteCard({
+      cardId,
+    });
     try {
       dispatch({
         type: "DELETE_CARD",

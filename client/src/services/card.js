@@ -16,4 +16,12 @@ const updateCard = async (payload) => {
   return response.data;
 };
 
-export default { newCard, updateCard };
+const deleteCard = async (payload) => {
+  const response = await axios.delete(
+    `${baseUrl}/${payload.cardId}`,
+    getConfig()
+  );
+  return response.data;
+};
+
+export default { newCard, updateCard, deleteCard };

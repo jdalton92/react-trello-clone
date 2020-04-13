@@ -34,6 +34,7 @@ const Card = ({ listId, card, changeCardText, deleteCard }) => {
 
   const handleDeleteCard = () => {
     deleteCard(card._id, listId);
+    endEditing();
   };
 
   if (!editing) {

@@ -7,8 +7,8 @@ import LoginSignUp from "./Login.SignUp";
 import LoginLogin from "./Login.Login";
 import "../styles/Login.scss";
 
-const Login = ({ setLogin, loginView, isFetching, user }) => {
-  const handleClick = e => {
+const Login = ({ setLogin, loginView, isFetching }) => {
+  const handleClick = (e) => {
     e.preventDefault();
     const win = window.open("https://jamesdalton.io", "_blank");
     if (win != null) {
@@ -56,14 +56,13 @@ const Login = ({ setLogin, loginView, isFetching, user }) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loginView: state.nav.loginView,
   isFetching: state.nav.isFetching,
-  user: state.user
 });
 
 const mapDispatchToProps = {
-  setLogin
+  setLogin,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

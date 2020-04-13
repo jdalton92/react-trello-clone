@@ -28,7 +28,6 @@ const List = ({
 
   const handleAddCard = (cardText) => {
     toggleAddingCard();
-    console.log("add card");
     addCard(cardText, list._id);
   };
 
@@ -38,7 +37,7 @@ const List = ({
 
   const editListTitle = () => {
     toggleEditingTitle();
-    changeListTitle(list._id, title);
+    changeListTitle(list.board, list._id, title);
   };
 
   const handleDeleteList = () => {

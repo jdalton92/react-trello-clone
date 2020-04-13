@@ -21,10 +21,6 @@ const App = ({ initUser, user, boards, lists, cards }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // console.log("boards", boards);
-  // console.log("lists", lists);
-  // console.log("cards", cards);
-
   if (loading) {
     return (
       <section className="w100 h100 flex-col-center">

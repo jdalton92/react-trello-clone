@@ -16,9 +16,21 @@ const cardReducer = (state = [], action) => {
       return [...restofCards, ...updatedCard];
     }
     case "DELETE_CARD": {
-      const { cardId } = action.payload;
-      const { [cardId]: deletedCard, ...restOfCards } = state;
-      return restOfCards;
+      const { cardId, listId } = action.payload;
+      const deletedCard = state.filter((c) => c._id === cardId);
+      const activeListCards = state.filter(
+        (c) => c.list === listId && c._id !== cardId
+      );
+      const remainingCards = state.filter((c) => c.list !== listId);
+      activeListCards.forEach((c) => {
+        if (c.cardIndex > deletedCard[0].cardIndex) {
+          c.cardIndex -= 1;
+          return c;
+        } else {
+          return c;
+        }
+      });
+      return [...activeListCards, ...remainingCards];
     }
     case "MOVE_CARD": {
       const {

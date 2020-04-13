@@ -51,8 +51,8 @@ const Boards = ({
                 <tr>
                   <th>Ref</th>
                   <th>Board Name</th>
-                  <th>Description</th>
-                  <th>Last Modified</th>
+                  <th className="boards-tablet">Description</th>
+                  <th className="boards-mobile">Last Modified</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -61,8 +61,8 @@ const Boards = ({
                   <tr key={i}>
                     <td>{i + 1}</td>
                     <td>{b.boardName}</td>
-                    <td>{b.boardDescription}</td>
-                    <td>
+                    <td className="boards-tablet">{b.boardDescription}</td>
+                    <td className="boards-mobile">
                       {new Intl.DateTimeFormat("en-GB").format(b.lastModified)}
                     </td>
                     <td>

@@ -110,4 +110,29 @@ cardsRouter.put(
   }
 );
 
+cardsRouter.delete(
+  "/:id",
+  middleware.tokenValidate,
+  async (request, response, next) => {
+    try {
+      const card = await Card.findById(request.params.id);
+      const list = await List.findById(card.list);
+      list.cards = list.cards.filter((c) => c._id !== request.params.id);
+
+      await Card.findByIdAndDelete(request.params.id);
+      await Card.updateMany(
+        {
+          $and: [{ list: card.list }, { cardIndex: { $gt: card.cardIndex } }],
+        },
+        { $inc: { cardIndex: -1 } }
+      );
+      list.save();
+
+      response.status(204).end();
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+
 module.exports = cardsRouter;

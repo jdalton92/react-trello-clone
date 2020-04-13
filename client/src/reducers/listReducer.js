@@ -10,10 +10,10 @@ const listReducer = (state = [], action) => {
     }
     case "CHANGE_LIST_TITLE": {
       const { listId, listTitle } = action.payload;
-      return {
-        ...state,
-        [listId]: { ...state[listId], title: listTitle },
-      };
+      const changedList = state.filter((l) => l._id === listId);
+      changedList[0].listTitle = listTitle;
+      const restOfLists = state.filter((l) => l._id !== listId);
+      return [...changedList, ...restOfLists];
     }
     case "DELETE_LIST": {
       const { listId } = action.payload;

@@ -58,7 +58,7 @@ export const deleteList = (listId) => {
 export const moveList = (boardId, listId, oldListIndex, newListIndex) => {
   return async (dispatch) => {
     try {
-      await listService.updateList({
+      listService.updateList({
         boardId,
         listId,
         oldListIndex,

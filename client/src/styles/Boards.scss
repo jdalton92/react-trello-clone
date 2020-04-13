@@ -43,3 +43,15 @@
 .boards-table tr:hover {
   background-color: #eaeaea;
 }
+
+@media screen and (max-width: 768px) {
+  .boards-tablet {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .boards-mobile {
+    display: none;
+  }
+}
