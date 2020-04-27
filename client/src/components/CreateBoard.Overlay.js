@@ -5,7 +5,7 @@ import { setBoardModal } from "../actions/navActions";
 import { addBoard } from "../actions/boardActions";
 import "../styles/CreateBoard.Overlay.scss";
 
-const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
+const CreateBoardOverlay = ({ modal, setBoardModal, addBoard }) => {
   const [boardName, setBoardName] = useState("");
   const [boardDescription, setBoardDescription] = useState("");
   const history = useHistory();
@@ -14,8 +14,8 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard, board }) => {
     e.preventDefault();
     addBoard(boardName, boardDescription);
     setBoardModal(false);
-    // Figure out better way to push to board
-    // setTimeout(() => history.push(`board/${board._id}`), 3000);
+    //Figure out better way to push to board
+    history.push("/");
   };
 
   const handleCancel = (e) => {

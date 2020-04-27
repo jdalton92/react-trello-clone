@@ -34,6 +34,7 @@ const cardReducer = (state = [], action) => {
     }
     case "MOVE_CARD": {
       const {
+        cardId,
         oldListId,
         newListId,
         oldCardIndex,
@@ -43,9 +44,7 @@ const cardReducer = (state = [], action) => {
       if (oldListId === newListId) {
         const activeListCards = state.filter((c) => c.list === oldListId);
         const remainingCards = state.filter((c) => c.list !== oldListId);
-        const newCard = activeListCards.filter(
-          (c) => c.cardIndex === oldCardIndex
-        );
+        const newCard = state.filter((c) => c._id === cardId);
         const otherCards = activeListCards.filter(
           (c) => c.cardIndex !== oldCardIndex
         );
@@ -64,6 +63,7 @@ const cardReducer = (state = [], action) => {
             return c;
           }
         });
+
         return [...remainingCards, ...otherCards, newCard[0]];
       }
 
@@ -73,13 +73,15 @@ const cardReducer = (state = [], action) => {
       const remainingCards = state.filter(
         (c) => c.list !== oldListId && c.list !== newListId
       );
+
       // Update old list cardIndex
       oldListCards.forEach((c) => {
         if (c.cardIndex > oldCardIndex) {
           c.cardIndex -= 1;
           return c;
-        } else if (c.cardIndex === oldCardIndex) {
+        } else if (c._id === cardId) {
           c.list = newListId;
+          c.cardIndex = newCardIndex;
           return c;
         } else {
           return c;
@@ -94,6 +96,7 @@ const cardReducer = (state = [], action) => {
           return c;
         }
       });
+
       return [...oldListCards, ...newListCards, ...remainingCards];
     }
     default:

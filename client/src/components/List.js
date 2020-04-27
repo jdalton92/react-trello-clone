@@ -76,7 +76,7 @@ const List = ({
               <div ref={provided.innerRef}>
                 {cards.length > 0 &&
                   cards.map((c, i) => (
-                    <Card key={i} card={c} listId={list._id} />
+                    <Card key={c._id} card={c} listId={list._id} />
                   ))}
 
                 {provided.placeholder}

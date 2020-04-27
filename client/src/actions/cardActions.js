@@ -44,6 +44,7 @@ export const moveCard = (
       dispatch({
         type: "MOVE_CARD",
         payload: {
+          cardId,
           oldListId,
           newListId,
           oldCardIndex,
