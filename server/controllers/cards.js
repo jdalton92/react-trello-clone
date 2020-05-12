@@ -48,10 +48,12 @@ cardsRouter.put(
     if (changeType === "moveCard") {
       updatedCard = {
         list: newListId,
+        cardIndex: newCardIndex,
       };
 
       if (oldListId === newListId) {
         // Update cardIndex if within same list
+        // listId of moved card is changed within try/catch block below
         await Card.updateMany(
           {
             $and: [
@@ -60,7 +62,7 @@ cardsRouter.put(
               { cardIndex: { $lt: oldCardIndex } },
             ],
           },
-          { $inc: { listIndex: +1 } }
+          { $inc: { cardIndex: +1 } }
         );
         await Card.updateMany(
           {
@@ -70,22 +72,22 @@ cardsRouter.put(
               { cardIndex: { $lte: newCardIndex } },
             ],
           },
-          { $inc: { listIndex: -1 } }
+          { $inc: { cardIndex: -1 } }
         );
       } else {
         // Update cardIndex if move to different list
-        // listId is changed within try/catch block below
+        // listId of moved card is changed within try/catch block below
         await Card.updateMany(
           {
             $and: [{ list: oldListId }, { cardIndex: { $gt: oldCardIndex } }],
           },
-          { $inc: { listIndex: -1 } }
+          { $inc: { cardIndex: -1 } }
         );
         await Card.updateMany(
           {
             $and: [{ list: newListId }, { cardIndex: { $gte: newCardIndex } }],
           },
-          { $inc: { listIndex: +1 } }
+          { $inc: { cardIndex: +1 } }
         );
       }
     } else if (changeType === "changeTitle") {

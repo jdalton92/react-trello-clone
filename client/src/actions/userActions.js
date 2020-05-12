@@ -82,6 +82,14 @@ export const createUser = ({ email, password, checkPassword }) => {
       });
     } catch (e) {
       console.log(e);
+      dispatch({
+        type: "SET_LOADING",
+        payload: { isFetching: false },
+      });
+      dispatch({
+        type: "SET_NOTIFICATION",
+        payload: { message: e.response.data.error, type: "error" },
+      });
     }
   };
 };
@@ -113,7 +121,7 @@ export const loginUser = ({ email, password }) => {
 
       dispatch({
         type: "SET_USER",
-        payload: user,
+        payload: { user },
       });
 
       dispatch({
@@ -121,6 +129,7 @@ export const loginUser = ({ email, password }) => {
         payload: { isFetching: false },
       });
     } catch (e) {
+      console.log(e);
       dispatch({
         type: "SET_LOADING",
         payload: { isFetching: false },

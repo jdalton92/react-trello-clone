@@ -45,3 +45,10 @@
     color: white;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .form-wrapper {
+    width: 90%;
+    padding: 20px;
+  }
+}

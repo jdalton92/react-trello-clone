@@ -1,25 +1,25 @@
 import { v4 as uuid } from "uuid";
 
 export const setNotification = ({ message, type }) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
       type: "SET_NOTIFICATION",
-      payLoad: {
+      payload: {
         message,
         type,
-        id: uuid()
-      }
+        id: uuid(),
+      },
     });
   };
 };
 
-export const clearNotification = id => {
-  return dispatch => {
+export const clearNotification = (id) => {
+  return (dispatch) => {
     dispatch({
       type: "CLEAR_NOTIFICATION",
-      payLoad: {
-        id
-      }
+      payload: {
+        id,
+      },
     });
   };
 };

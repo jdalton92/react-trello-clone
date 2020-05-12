@@ -30,11 +30,11 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard }) => {
           <div className="modal">
             <h2>Create Board</h2>
             <form
-              className="content w100 h80 flex-col-center form-element"
+              className="content w100 h100 flex-col-center form-element"
               onSubmit={handleSubmit}
             >
               <input
-                className="w100 form-control"
+                className="w100 createboard-input"
                 placeholder="Board Name"
                 type="text"
                 maxLength={100}
@@ -44,7 +44,7 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard }) => {
                 required
               />
               <input
-                className="w100 form-control"
+                className="w100 createboard-input"
                 placeholder="Board Description"
                 type="text"
                 maxLength={100}

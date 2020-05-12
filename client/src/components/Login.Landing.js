@@ -1,5 +1,5 @@
 import React from "react";
-import loginIcon from "../styles/images/login-icon.svg";
+import loginIcon from "../styles/images/user-icon.png";
 import { connect } from "react-redux";
 import { setLogin } from "../actions/navActions";
 import { trialUser } from "../actions/userActions";
@@ -35,7 +35,7 @@ const LoginLanding = ({ setLogin, trialUser }) => {
       >
         log In
       </button>
-      <hr className="w90" />
+      <div className="w90 login-break" />
       <button className="w90 login-alt-btn" onClick={handleTestFirst}>
         I'd like to test first
       </button>

@@ -41,7 +41,9 @@ const MenuItem = ({ link, shrink, name, logoutUser, setBoardModal }) => {
   return (
     <>
       <div
-        className="w100 flex-col-center menu-item"
+        className={`${
+          shrink ? "shrink-menu-item" : ""
+        } w100 flex-col-center menu-item`}
         {...tooltipProps}
         onClick={handleClick}
       >
