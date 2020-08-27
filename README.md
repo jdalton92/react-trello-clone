@@ -4,7 +4,7 @@ Minimal Trello clone built with React
 
 ## Prototype
 
-> [https://react-trello-clone.herokuapp.com/](https://react-trello-clone.herokuapp.com/)
+> [https://reacttrelloclone.herokuapp.com/](https://reacttrelloclone.herokuapp.com/)
 
 ## Authors
 
