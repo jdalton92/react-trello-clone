@@ -2,6 +2,10 @@
 
 Minimal Trello clone built with React
 
+## Acknowledgement
+
+- [marconunnari](https://github.com/marconunnari/trello-clone) for the starter frontend class based React components, which I have implemented with React functional components, as well as integrated with my bespoke NodeJS/MongoDB backend
+
 ## Prototype
 
 > [https://reacttrelloclone.herokuapp.com/](https://reacttrelloclone.herokuapp.com/)
