@@ -5,7 +5,6 @@ import PageHeader from "./PageHeader";
 import Board from "./Board";
 
 const CreateBoard = ({ board }) => {
-  console.log("create board, state.board", board);
   return (
     <>
       <PageHeader header={"Create Board"} />

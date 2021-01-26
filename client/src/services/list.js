@@ -21,4 +21,5 @@ const deleteList = async (id) => {
   return response.data;
 };
 
+// eslint-disable-next-line
 export default { saveList, updateList, deleteList };

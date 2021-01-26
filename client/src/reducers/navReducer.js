@@ -1,7 +1,7 @@
 const initialState = {
   loginView: "landing",
   showBoardModal: false,
-  menuShrink: true,
+  menuShrink: false,
   isFetching: false,
 };
 

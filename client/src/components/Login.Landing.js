@@ -23,20 +23,14 @@ const LoginLanding = ({ setLogin, trialUser }) => {
           src={loginIcon}
         />
       </div>
-      <button
-        className="w90 login-secondary-btn"
-        onClick={() => setLogin("signUp")}
-      >
+      <button className="w100 secondary-btn" onClick={() => setLogin("signUp")}>
         sign up
       </button>
-      <button
-        className="w90 login-primary-btn"
-        onClick={() => setLogin("login")}
-      >
+      <button className="w100 primary-btn" onClick={() => setLogin("login")}>
         log In
       </button>
-      <div className="w90 login-break" />
-      <button className="w90 login-alt-btn" onClick={handleTestFirst}>
+      <div className="w100 login-break" />
+      <button className="w100 alt-btn" onClick={handleTestFirst}>
         I'd like to test first
       </button>
     </>

@@ -12,8 +12,7 @@ const ListEditor = ({
 }) => {
   const ref = useRef();
   const handleClick = (e) => {
-    const node = ref.current;
-    if (node.contains(e.target)) {
+    if (ref.current?.contains(e.target)) {
       return;
     }
     onClickOutside();

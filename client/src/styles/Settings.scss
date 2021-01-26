@@ -17,12 +17,19 @@
   margin-bottom: 10px;
 }
 
+.form-control {
+  margin-top:12px;
+  margin-bottom: 4px;
+}
+
 .form-current-email {
   padding-top: 10px;
   height: 30px;
+  margin-bottom:16px;
 }
 
 .form-error {
+  margin-bottom: 4px;
   min-height: 15px;
   font-size: 10px;
   color: rgb(200, 35, 35);
@@ -43,6 +50,9 @@
     cursor: pointer;
     background-color: black;
     color: white;
+  }
+  &:active{
+    background-color: grey;
   }
 }
 

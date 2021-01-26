@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import PageHeader from "./PageHeader";
 import { updateUser, deleteUser } from "../actions/userActions";
-// import { setNotification } from "../reducers/notificationReducer";
 import { Form as FinalForm, Field } from "react-final-form";
 import {
   required,
@@ -75,10 +74,15 @@ const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
                     >
                       {({ input, meta }) => (
                         <div>
+                          <label className="mb12" htmlFor="email">
+                            New email
+                          </label>
                           <input
-                            className="form-control"
+                            id="email"
+                            className="form-control w100"
                             placeholder="new@email.com"
                             type="email"
+                            autoComplete="on"
                             {...input}
                           />
                           <div className="form-error">
@@ -125,10 +129,15 @@ const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
                       >
                         {({ input, meta }) => (
                           <div>
+                            <label className="mb12" htmlFor="old-password">
+                              Old password
+                            </label>
                             <input
-                              className="form-control"
+                              id="old-password"
+                              className="form-control w100"
                               placeholder="Old Password"
                               type="password"
+                              autoComplete="on"
                               {...input}
                             />
                             <div className="form-error">
@@ -143,10 +152,15 @@ const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
                       >
                         {({ input, meta }) => (
                           <div>
+                            <label className="mb12" htmlFor="new-password">
+                              New password
+                            </label>
                             <input
-                              className="form-control"
+                              id="new-password"
+                              className="form-control w100"
                               placeholder="New Password"
                               type="password"
+                              autoComplete="on"
                               {...input}
                             />
                             <div className="form-error">
@@ -158,10 +172,15 @@ const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
                       <Field name="checkPassword">
                         {({ input, meta }) => (
                           <div>
+                            <label className="mb12" htmlFor="confirm-password">
+                              Confirm new password
+                            </label>
                             <input
-                              className="form-control"
+                              id="confirm-password"
+                              className="form-control w100"
                               placeholder="Confirm New Password"
                               type="password"
+                              autoComplete="on"
                               {...input}
                             />
                             <div className="form-error">
@@ -196,10 +215,15 @@ const Settings = ({ updateUser, deleteUser, user, isFetching }) => {
                       >
                         {({ input, meta }) => (
                           <div>
+                            <label className="mb12" htmlFor="delete">
+                              Password
+                            </label>
                             <input
-                              className="form-control"
+                              id="delete"
+                              className="form-control w100"
                               placeholder="Password"
                               type="password"
+                              autoComplete="on"
                               {...input}
                             />
                             <div className="form-error">
@@ -235,7 +259,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   updateUser,
   deleteUser,
-  //   setNotification
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -49,7 +49,8 @@
 }
 
 .login-card {
-  height: 350px;
+  height: 375px;
+  margin: 0px 24px;
 }
 
 .login-card form {
@@ -58,7 +59,7 @@
 
 .login-card input {
   margin-bottom: 10px !important;
-  width: 80% !important;
+  width: 100% !important;
 }
 
 .login-card button,
@@ -83,36 +84,42 @@
   border-bottom: 1px solid black;
 }
 
-.login-primary-btn:hover,
-.login-secondary-btn:hover,
-.login-alt-btn:hover {
+.primary-btn:hover,
+.secondary-btn:hover,
+.alt-btn:hover {
   cursor: pointer;
 }
 
-.login-secondary-btn {
+.primary-btn:active,
+.secondary-btn:active,
+.alt-btn:active {
+  background-color: darkgrey;
+}
+
+.secondary-btn {
   background-color: white;
   border: solid 1px $licorice;
   color: $licorice;
 }
 
-.login-secondary-btn:hover {
+.secondary-btn:hover {
   background-color: $licorice;
   color: white;
 }
 
-.login-primary-btn {
+.primary-btn {
   background-color: $licorice;
   color: white;
   border: solid 1px $licorice;
 }
 
-.login-alt-btn {
+.alt-btn {
   background-color: $gray;
   color: white;
   border: solid 1px $gray;
 }
 
-.login-alt-btn:hover {
+.alt-btn:hover {
   background-color: $platinum;
 }
 

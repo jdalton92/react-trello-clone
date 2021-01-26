@@ -31,4 +31,5 @@ const deleteBoard = async (id) => {
   return response.data;
 };
 
+// eslint-disable-next-line
 export default { getBoards, getBoard, newBoard, updateBoard, deleteBoard };

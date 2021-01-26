@@ -16,23 +16,33 @@ const LoginLogin = ({ loginUser }) => {
 
   return (
     <form className="flex-col-center form-element" onSubmit={handleSubmit}>
+      <label className="w100" htmlFor="email">
+        email
+      </label>
       <input
+        id="email"
         name="email"
         onChange={formHandler}
         placeholder="your@email.com"
         type="email"
         minLength={3}
+        autoComplete="on"
         required
       />
+      <label className="w100" htmlFor="password">
+        password
+      </label>
       <input
+        id="password"
         name="password"
         onChange={formHandler}
         placeholder="password"
         type="password"
         minLength={3}
+        autoComplete="on"
         required
       />
-      <button className="w90 login-primary-btn" type="submit">
+      <button className="w100 primary-btn" type="submit">
         log in
       </button>
     </form>

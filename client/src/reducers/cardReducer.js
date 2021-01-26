@@ -87,6 +87,7 @@ const cardReducer = (state = [], action) => {
           return c;
         }
       });
+
       // Update new list cardIndex
       newListCards.forEach((c) => {
         if (c.cardIndex >= newCardIndex) {

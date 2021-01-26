@@ -28,12 +28,16 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard }) => {
       {modal ? (
         <div className="overlay">
           <div className="modal">
-            <h2>Create Board</h2>
+            <h2 className="mb24">Create Board</h2>
             <form
               className="content w100 h100 flex-col-center form-element"
               onSubmit={handleSubmit}
             >
+              <label className="w100" htmlFor="name">
+                Board Name
+              </label>
               <input
+                id="name"
                 className="w100 createboard-input"
                 placeholder="Board Name"
                 type="text"
@@ -43,7 +47,11 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard }) => {
                 autoComplete="off"
                 required
               />
+              <label className="w100" htmlFor="description">
+                Board Description
+              </label>
               <input
+                id="description"
                 className="w100 createboard-input"
                 placeholder="Board Description"
                 type="text"
@@ -55,13 +63,13 @@ const CreateBoardOverlay = ({ modal, setBoardModal, addBoard }) => {
               />
               <div className="w100 flex-row">
                 <button
-                  className="flex-1 login-primary-btn create-new-board-btn"
+                  className="flex-1 primary-btn create-new-board-btn"
                   type="submit"
                 >
                   create
                 </button>
                 <button
-                  className="flex-1 login-secondary-btn cancel-new-board-btn"
+                  className="flex-1 secondary-btn cancel-new-board-btn"
                   type="button"
                   onClick={handleCancel}
                 >

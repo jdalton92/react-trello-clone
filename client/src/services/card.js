@@ -24,4 +24,5 @@ const deleteCard = async (payload) => {
   return response.data;
 };
 
+// eslint-disable-next-line
 export default { newCard, updateCard, deleteCard };

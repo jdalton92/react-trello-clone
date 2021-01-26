@@ -17,10 +17,7 @@ const Login = ({ setLogin, loginView, isFetching }) => {
   };
 
   const BackButton = () => (
-    <button
-      className="w90 login-secondary-btn"
-      onClick={() => setLogin("landing")}
-    >
+    <button className="w100 secondary-btn" onClick={() => setLogin("landing")}>
       back
     </button>
   );

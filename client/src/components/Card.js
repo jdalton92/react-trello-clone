@@ -11,6 +11,7 @@ import CardEditor from "./CardEditor";
 const Card = ({ listId, card, changeCardText, deleteCard }) => {
   const [hover, setHover] = useState(false);
   const [editing, setEditing] = useState(false);
+  // eslint-disable-next-line
   const [text, setText] = useState("");
 
   const startHover = () => setHover(true);
